@@ -15,7 +15,7 @@ A creative, interactive, and colorful portfolio showcasing skills, projects, and
 
 Check out my portfolio here ↓  
 
-🔗 **https://alifprotfolio.netlify.app/**  
+🔗 **https://alif-protfolio.netlify.app/**  
 
 
 ## 🚀 Features
