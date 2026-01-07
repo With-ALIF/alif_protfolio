@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "name": "GitHub",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/GitHub.png?raw=true https://github.com/With-ALIF/logo_zone/blob/main/images/github.png?raw=true"
+    },
+    {
+      "name": "VS Code",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/VS%20Code.png?raw=true"
+    },
+    {
+      "name": "Git",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/Git_icon.svg.png?raw=true"
+    },
+    {
+      "name": "Vercel",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/Vercel.png?raw=true"
+    },
+    {
+        "name": "Netlify",
+        "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/Netlify.png?raw=true"
+    }
+  ]
+}

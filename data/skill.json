@@ -1,0 +1,35 @@
+{
+  "title": "Technical <span class='text-gradient'>Skill</span>",
+  "items": [
+    {
+      "name": "HTML",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/html5..png?raw=true",
+      "level": 75
+    },
+    {
+      "name": "CSS",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/css3.png?raw=true",
+      "level": 50
+    },
+    {
+      "name": "JavaScript",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/JavaScript.png?raw=true",
+      "level": 40
+    },
+    {
+      "name": "C",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/c.png?raw=true",
+      "level": 30
+    },
+     {
+      "name": "Python",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/python.png?raw=true",
+      "level": 20
+    },
+    {
+      "name": "Typescript",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/TypeScript.png?raw=true",
+      "level": 10
+    }
+  ]
+}

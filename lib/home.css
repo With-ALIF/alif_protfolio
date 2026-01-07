@@ -1,0 +1,62 @@
+.btn-primary {
+  background: linear-gradient(135deg, #ffb703, #ff8c00);
+  color: #111;
+  border: none;
+  box-shadow: 0 10px 25px rgba(255, 183, 3, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(255, 183, 3, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #ffb703;
+  border: 1.5px solid rgba(255, 183, 3, 0.7);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 183, 3, 0.12);
+  transform: translateY(-2px);
+}
+
+.btn-cv {
+  background: rgba(255, 183, 3, 0.08);
+  color: #ffb703;
+  border: 1.5px solid rgba(255, 183, 3, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.btn-cv:hover {
+  background: rgba(255, 183, 3, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 183, 3, 0.45);
+}
+
+@media (max-width: 767px) {
+
+  .hero-title {
+    white-space: normal;
+  }
+
+  .hero-buttons {
+    gap: 0.5rem;
+  }
+
+  .hero-buttons .btn {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    min-height: auto;
+    padding: 6rem 0 4.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.05rem;
+  }
+}

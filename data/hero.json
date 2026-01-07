@@ -1,0 +1,24 @@
+{
+  "title": {
+    "line1": "",
+    "line2": "Abdullah Al Khalid "
+  },
+  "description": "I design and build modern, scalable, and user-focused digital products using HTML, CSS, and modern frontend technologies.",
+  "buttons": [
+    {
+      "text": "View Projects",
+      "link": "#projects-section",
+      "style": "primary"
+    },
+    {
+      "text": "Contact Me",
+      "link": "#contact",
+      "style": "outline"
+    },
+    {
+      "text": "View CV",
+      "link": "https://drive.google.com/file/d/1LBvjc7srCZN8Or_mFGIb7dYELM7GYOsO/view?usp=drive_link",
+      "style": "cv"
+    }
+  ]
+}

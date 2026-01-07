@@ -1,0 +1,25 @@
+{
+  "title": "Services",
+  "items": [
+    {
+      "title": "Web Development",
+      "icon": "code",
+      "description": "Building fast, responsive, and scalable websites using modern technologies."
+    },
+    {
+      "title": "Modern Website",
+      "icon": "monitor",
+      "description": "Creating modern, clean, and user-friendly websites with best UI practices."
+    },
+    {
+      "title": "Frontend Development",
+      "icon": "brush",
+      "description": "I excel in frontend development, crafting intuitive and engaging user interfaces with expertise in HTML and CSS."
+    },
+    {
+      "title": "Website Maintenance",
+      "icon": "wrench",
+      "description": "Already have a website or web application but need ongoing maintenance? I provide reliable and efficient services."
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+#contact {
+  margin-top: 3rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+.contact-description {
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  color: hsl(40, 10%, 72%);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 2rem;
+  border-radius: 1.75rem;
+  background: radial-gradient(
+      circle at top,
+      rgba(255, 255, 255, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(0, 0, 0, 0.7)
+    );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.contact-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ffb703, #ff8c00);
+  color: #111;
+  flex-shrink: 0;
+}
+
+.contact-card > div:last-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(40, 10%, 65%);
+  margin-bottom: 0.25rem;
+}
+
+.contact-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: hsl(0, 0%, 96%);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.contact-socials {
+  position: relative;
+  margin-top: 2.5rem;
+  padding: 2.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.contact-socials::-webkit-scrollbar {
+  display: none;
+}
+
+.contact-socials::before,
+.contact-socials::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+}
+
+.contact-socials::before {
+  top: 0;
+}
+
+.contact-socials::after {
+  bottom: 0;
+}
+
+.contact-socials a {
+  flex: 0 0 auto;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  color: hsl(0, 0%, 95%);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.contact-socials svg {
+  width: 28px;
+  height: 28px;
+}
+
+.contact-socials a:hover {
+  transform: translateY(-5px);
+  color: #ffb703;
+}
+
+@media (min-width: 1025px) {
+  .contact-socials {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.3rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #contact {
+    margin-top: 2rem;
+  }
+
+  .contact-card {
+    padding: 1.5rem;
+  }
+
+  .contact-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .contact-value {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    justify-items: center;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  .contact-socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    justify-items: center;
+  }
+}

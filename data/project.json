@@ -1,0 +1,62 @@
+{
+  "title": "Featured <span class='text-gradient'>Projects</span>",
+  "items": [
+    {
+      "title": "Portfolio Website",
+      "description": "A modern responsive portfolio built with clean UI and animations.",
+      "tags": ["HTML", "CSS", "JavaScript"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-web.png?raw=true",
+      "github": "https://github.com/With-ALIF/alif",
+      "demo": "https://alif-protfolio.netlify.app/"
+    },
+    {
+      "title": "Alif Tools",
+      "description": "ALIF Tools is a modern, fast, and privacy-focused online platform for processing PDF and image files with ease.\nIt is designed to be simple, secure, and completely free for everyone.",
+      "tags": ["Typescript", "HTML"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-tools.png?raw=true",
+      "github": "https://github.com/With-ALIF/alif-tools",
+      "demo": "https://alif-tools.vercel.app/"
+    },
+    {
+      "title": "BG Remover",
+      "description": "Background Remover is a tool to remove backgrounds from images easily and quickly.\nIt is designed to be simple, secure, and completely free for everyone.",
+      "tags": ["Typescript", "HTML"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/remove-bg.png?raw=true",
+      "github": "https://github.com/With-ALIF/remove-background",
+      "demo": "https://remove-background-free.vercel.app/"
+    },
+    {
+      "title": "Hall Dining Management System",
+      "description": "Hall Dining Management System is a web application designed to streamline the management of dining services in university halls.\nIt provides an efficient way to handle reservations, orders, and inventory.",
+      "tags": ["HTML", "JavaScript"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/hall-management.png?raw=true",
+      "github": "https://github.com/With-ALIF/hall-dining-management",
+      "demo": "https://hall-dining-management.vercel.app/"
+    },
+    {
+      "title": "Admission Tool Hub",
+      "description": "Admission Tools Hub is a comprehensive web platform that centralizes all essential tools for university admissions. It offers a variety of features to assist students in managing their application process efficiently.",
+      "tags": ["HTML", "JavaScript"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/admission-tool.png?raw=true",
+      "github": "https://github.com/With-ALIF/Admission-Journey",
+      "demo": "https://admission-study.netlify.app/"
+    },
+    {
+      "title": "E - Commerce Website",
+      "description": " E-Commerce Website is a modern and responsive online store built with HTML and CSS. It features a clean UI design and smooth animations to enhance user experience",
+      "tags": ["HTML", "CSS"],
+      "image": "https://github.com/With-ALIF/E-Commerce/blob/main/picture/e-comerce.png?raw=true",
+      "github": "https://github.com/With-ALIF/E-Commerce",
+      "demo": "https://with-alif.github.io/E-Commerce/"
+    },
+    {
+      "title": "Password Generator",
+      "description": "Password Generator is a tool to generate strong and secure passwords with customizable options.",
+      "tags": ["HTML", "JavaScript"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/password-generatot.png?raw=true",
+      "github": "https://github.com/With-ALIF/password_generator",
+      "demo": "https://with-alif.github.io/password_generator/"
+    }
+  ]
+}
+

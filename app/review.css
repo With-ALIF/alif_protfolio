@@ -1,0 +1,232 @@
+#review-section {
+  padding: 28px 20px 48px;
+  color: #cfd3dc;
+}
+
+#review-section .container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 16px;
+}
+
+.review-header {
+  max-width: 860px;
+  text-align: left;
+}
+
+.review-label {
+  display: inline-block;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 3px;
+  line-height: 1.2;
+  padding: 0;
+  background: linear-gradient(
+    90deg,
+    #ff9f1c,
+    #ff6a00,
+    #ff3d5a,
+    #ff2d8f
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.review-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: hsl(40, 20%, 95%);
+}
+
+/* ================= GRID ================= */
+
+.review-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(320px, 1fr);
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  padding-bottom: 1rem;
+}
+
+.review-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.review-grid::-webkit-scrollbar-track {
+  background: hsl(20, 10%, 12%);
+  border-radius: 10px;
+}
+
+.review-grid::-webkit-scrollbar-thumb {
+  background: hsl(20, 10%, 25%);
+  border-radius: 10px;
+}
+
+.review-grid::-webkit-scrollbar-thumb:hover {
+  background: hsl(20, 10%, 35%);
+}
+
+/* ================= CARD ================= */
+
+.review-inner {
+  scroll-snap-align: center;
+  background: hsl(20, 14%, 8%);
+  border: 1px solid hsl(20, 10%, 18%);
+  border-radius: 1.5rem;
+  padding: 2rem 1.8rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease,
+              transform 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.review-inner:hover {
+  border-color: #ff9f1c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.review-quote {
+  font-size: 3rem;
+  color: #ff9f1c;
+  line-height: 1;
+}
+
+.review-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: hsl(40, 15%, 85%);
+  flex: 1;
+}
+
+.review-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-author img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ff9f1c;
+}
+
+.review-author h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: hsl(40, 20%, 95%);
+}
+
+/* ================= DOTS ================= */
+
+.review-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.review-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #555;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.review-dots .dot:hover {
+  background: #888;
+  transform: scale(1.1);
+}
+
+.review-dots .dot.active {
+  background: #ff9f1c;
+  transform: scale(1.3);
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+
+@media (max-width: 768px) {
+  #review-section {
+    padding: 22px 14px 36px;
+  }
+
+  .review-title {
+    font-size: 1.5rem;
+  }
+
+  .review-grid {
+    grid-auto-columns: minmax(260px, 78%);
+    scroll-snap-type: x mandatory;
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 1rem;
+  }
+
+  .review-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Scroll hint shadow */
+  .review-grid::after {
+    content: "";
+    position: sticky;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(
+      to left,
+      hsl(20, 14%, 8%),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .review-inner {
+    scroll-snap-align: start;
+    padding: 1.5rem 1.3rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .review-inner:active {
+    transform: scale(0.97);
+  }
+
+  .review-quote {
+    font-size: 2.5rem;
+  }
+
+  .review-text {
+    font-size: 0.95rem;
+  }
+
+  .review-author img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .review-dots {
+    margin-top: 12px;
+  }
+
+  .review-dots .dot {
+    width: 8px;
+    height: 8px;
+    opacity: 0.6;
+  }
+
+  .review-dots .dot.active {
+    opacity: 1;
+  }
+}
