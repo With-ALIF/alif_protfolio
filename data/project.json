@@ -6,8 +6,8 @@
       "description": "A modern responsive portfolio built with clean UI and animations.",
       "tags": ["HTML", "CSS", "JavaScript"],
       "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-web.png?raw=true",
-      "github": "https://github.com/With-ALIF/alif",
-      "demo": "https://alif-protfolio.netlify.app/"
+      "github": "https://github.com/With-ALIF/alif_protfolio",
+      "demo": "https://alif-protfolio.vercel.app/"
     },
     {
       "title": "Alif Tools",
@@ -56,6 +56,14 @@
       "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/password-generatot.png?raw=true",
       "github": "https://github.com/With-ALIF/password_generator",
       "demo": "https://with-alif.github.io/password_generator/"
+    },
+   {
+      "title": "Vehicle Management Dashboard",
+      "description": "Vehicle Management Dashboard is a web application that provides a centralized platform for managing vehicle information, tracking maintenance schedules, and monitoring vehicle performance.",
+      "tags": ["Typescript", "HTML"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/vehicle.png?raw=true",
+      "github": "https://github.com/With-ALIF/vehicle-management-dashboard",
+      "demo": "https://vehicle-management-dashboard.vercel.app/"
     }
   ]
 }

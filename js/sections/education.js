@@ -1,8 +1,9 @@
 export function renderEducationSection(educationData) {
-  let eduIndex = 0;
-
   const education = document.getElementById("education");
-  if (!education || !educationData || !educationData.length) return;
+  if (!education || !educationData || !educationData.length) {
+    console.warn("Education section not found or no data provided");
+    return;
+  }
 
   education.innerHTML = `
     <h2 class="section-tite">
@@ -15,7 +16,7 @@ export function renderEducationSection(educationData) {
           (e, i) => `
         <div class="education-card" data-index="${i}">
           <div class="education-header">
-            <img src="${e.logo}" class="education-logo" alt="${e.institute}">
+            <img src="${e.logo}" class="education-logo" alt="${e.institute}" onerror="this.style.display='none'">
             <div>
               <h3 class="education-degree">${e.degree}</h3>
               <p class="education-institute">
@@ -46,36 +47,58 @@ export function renderEducationSection(educationData) {
     </div>
 
     <div class="edu-timeline">
-      <button id="eduPrev">‹</button>
+      <button id="eduPrev" aria-label="Previous education">‹</button>
       <div class="edu-line">
         <span class="edu-dot"></span>
       </div>
-      <button id="eduNext">›</button>
+      <button id="eduNext" aria-label="Next education">›</button>
     </div>
 
     <div id="eduCardWrapper">
       <div id="eduCard"></div>
     </div>
   `;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      initializeEducation(educationData);
+    });
+  });
+}
 
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-  /* ================= MOBILE ================= */
-
+function initializeEducation(educationData) {
+  let eduIndex = 0;
+  const checkIsMobile = () => {
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    return width <= 768;
+  };
+  
+  const isMobile = checkIsMobile();
   if (isMobile) {
     const eduCard = document.getElementById("eduCard");
     const eduDot = document.querySelector(".edu-line .edu-dot");
     const eduPrev = document.getElementById("eduPrev");
     const eduNext = document.getElementById("eduNext");
 
+    if (!eduCard || !eduDot || !eduPrev || !eduNext) {
+      console.error("Mobile education elements not found");
+      return;
+    }
+
     function renderEducation(direction = "right") {
       const e = educationData[eduIndex];
 
+      if (!e) {
+        console.error("Education data not found at index:", eduIndex);
+        return;
+      }
+      eduCard.className = "";
+      void eduCard.offsetWidth;
       eduCard.className = `edu-card slide-${direction}`;
+      
       eduCard.innerHTML = `
         <div class="education-card">
           <div class="education-header">
-            <img src="${e.logo}" class="education-logo" alt="${e.institute}">
+            <img src="${e.logo}" class="education-logo" alt="${e.institute}" onerror="this.style.display='none'">
             <div>
               <h3 class="education-degree">${e.degree}</h3>
               <p class="education-institute">
@@ -93,52 +116,67 @@ export function renderEducationSection(educationData) {
         </div>
       `;
 
-      const percent =
-        educationData.length > 1
+      const percent = educationData.length > 1
           ? (eduIndex / (educationData.length - 1)) * 100
           : 0;
 
-      eduDot.style.left = `${percent}%`;
+      if (eduDot && eduDot.style) {
+        eduDot.style.left = `${percent}%`;
+      }
     }
-
-    renderEducation();
-
-    eduNext.onclick = () => {
+    setTimeout(() => renderEducation("right"), 100);
+    const handleNext = (e) => {
+      if (e) e.preventDefault();
       eduIndex = (eduIndex + 1) % educationData.length;
       renderEducation("right");
     };
 
-    eduPrev.onclick = () => {
-      eduIndex =
-        (eduIndex - 1 + educationData.length) %
-        educationData.length;
+    const handlePrev = (e) => {
+      if (e) e.preventDefault();
+      eduIndex = (eduIndex - 1 + educationData.length) % educationData.length;
       renderEducation("left");
     };
+
+    eduNext.onclick = handleNext;
+    eduPrev.onclick = handlePrev;
+    eduNext.addEventListener("touchstart", handleNext, { passive: false });
+    eduPrev.addEventListener("touchstart", handlePrev, { passive: false });
 
     return;
   }
 
-  /* ================= DESKTOP ================= */
-
   const grid = document.getElementById("educationGrid");
-  const cards = Array.from(
-    grid.querySelectorAll(".education-card")
-  );
+  
+  if (!grid) {
+    console.error("Education grid not found");
+    return;
+  }
+
+  const cards = Array.from(grid.querySelectorAll(".education-card"));
   const dots = document.querySelectorAll("#eduDots .edu-dot");
+
+  if (cards.length === 0) {
+    console.warn("No education cards found");
+    return;
+  }
 
   function setActiveDot(index) {
     dots.forEach(d => d.classList.remove("active"));
-    dots[index]?.classList.add("active");
+    if (dots[index]) {
+      dots[index].classList.add("active");
+    }
   }
 
   dots.forEach((dot, i) => {
     dot.addEventListener("click", () => {
-      cards[i].scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center"
-      });
-      setActiveDot(i);
+      if (cards[i]) {
+        cards[i].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+        setActiveDot(i);
+      }
     });
   });
 
@@ -152,8 +190,7 @@ export function renderEducationSection(educationData) {
       cards.forEach((card, i) => {
         const rect = card.getBoundingClientRect();
         const distance = Math.abs(
-          rect.left + rect.width / 2 -
-            window.innerWidth / 2
+          rect.left + rect.width / 2 - window.innerWidth / 2
         );
 
         if (distance < closestDistance) {
@@ -165,4 +202,6 @@ export function renderEducationSection(educationData) {
       setActiveDot(closestIndex);
     }, 100);
   });
+
+  setActiveDot(0);
 }
