@@ -17,6 +17,11 @@
       "level": 40
     },
     {
+      "name": "Java",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/java.webp?raw=true",
+      "level": 35
+    },
+    {
       "name": "C",
       "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/c.png?raw=true",
       "level": 30
@@ -30,6 +35,11 @@
       "name": "Typescript",
       "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/TypeScript.png?raw=true",
       "level": 10
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/tailwind.png?raw=true",
+      "level": 5
     }
   ]
 }

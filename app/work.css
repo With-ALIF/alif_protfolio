@@ -1,17 +1,11 @@
 .work-title {
-  background: linear-gradient(
-    90deg,
-    #ff9f1c,
-    #ff6a00,
-    #ff3d5a,
-    #ff2d8f
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
-  font-size: clamp(2rem, 6vw, 3.2rem);
-  font-weight: 800;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 #work-timeline {

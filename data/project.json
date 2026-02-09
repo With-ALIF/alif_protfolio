@@ -7,7 +7,7 @@
       "tags": ["HTML", "CSS", "JavaScript"],
       "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-web.png?raw=true",
       "github": "https://github.com/With-ALIF/alif_protfolio",
-      "demo": "https://alif-protfolio.vercel.app/"
+      "demo": "https://alif.mnr.bd/"
     },
     {
       "title": "Alif Tools",
@@ -64,6 +64,22 @@
       "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/vehicle.png?raw=true",
       "github": "https://github.com/With-ALIF/vehicle-management-dashboard",
       "demo": "https://vehicle-management-dashboard.vercel.app/"
+    },
+     {
+      "title": "MNR Task Manager",
+      "description": "MNR Task Manager is a web application designed to help manage tasks efficiently within the MNR organization.",
+      "tags": ["Typescript", "HTML"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/task.png?raw=true",
+      "github": "https://github.com/With-ALIF/MNR-TEAM",
+      "demo": "https://taskmnr.vercel.app/admin"
+    },
+     {
+      "title": "Cash Book System",
+      "description": "Cash Book is a modern, mobile-friendly web app that lets you easily manage your daily expenses, budget and multiple wallets (Bank / Bikash / Cash etc.).",
+      "tags": ["Typescript", "HTML"],
+      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/cash.png?raw=true",
+      "github": "https://github.com/With-ALIF/cash-book",
+      "demo": "https://ecashbook.netlify.app/"
     }
   ]
 }

@@ -5,6 +5,37 @@
   margin-top: 2rem;
 }
 
+@media (max-width: 768px) {
+  .skills-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  }
+  
+  .skills-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .skills-grid::-webkit-scrollbar-track {
+    background: hsl(20, 10%, 18%);
+    border-radius: 10px;
+  }
+  
+  .skills-grid::-webkit-scrollbar-thumb {
+    background: hsl(38, 92%, 50%);
+    border-radius: 10px;
+  }
+  
+  .skill-card {
+    min-width: 280px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}
+
 
 .skill-card {
   background: hsl(20, 14%, 8%);
@@ -76,10 +107,6 @@
 
  
 @media (max-width: 768px) {
-  .skills-grid {
-    gap: 1.2rem;
-  }
-
   .skill-card {
     padding: 1.35rem;
   }
