@@ -1,0 +1,222 @@
+.pd-error-wrapper{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#1a1a2e;
+    padding:2rem;
+    position:relative;
+    overflow:hidden;
+}
+
+.pd-error-wrapper::before{
+    content:'';
+    position:absolute;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    background:rgba(255,183,3,0.09);
+    top:-80px;
+    left:-80px;
+}
+
+.pd-error-wrapper::after{
+    content:'';
+    position:absolute;
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    background:rgba(255,183,3,0.07);
+    bottom:-60px;
+    right:-60px;
+}
+
+.pd-error-card{
+    background:#ffffff;
+    border:0.5px solid rgba(255,183,3,0.2);
+    border-radius:24px;
+    padding:3rem 2.5rem 2.5rem;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1.4rem;
+    position:relative;
+    z-index:1;
+}
+
+.pd-error-icon{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#fff8e1;
+    border:1.5px solid #ffb703;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.pd-error-icon::after{
+    content:'';
+    position:absolute;
+    inset:-7px;
+    border-radius:50%;
+    border:1px solid rgba(255,183,3,0.22);
+}
+
+.pd-error-icon i{
+    font-size:38px;
+    color:#ffb703;
+}
+
+.pd-error-badge{
+    background:#ffb703;
+    color:#5a3e00;
+    font-size:11px;
+    font-weight:500;
+    padding:5px 18px;
+    border-radius:100px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+}
+
+.pd-divider{
+    width:40px;
+    height:2px;
+    background:#ffb703;
+    border-radius:2px;
+    opacity:.45;
+}
+
+.pd-error-card h2{
+    font-size:22px;
+    font-weight:500;
+    color:#111;
+    line-height:1.3;
+}
+
+.pd-error-card p{
+    font-size:14px;
+    color:#777;
+    line-height:1.75;
+    max-width:290px;
+}
+
+.pd-error-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    width:100%;
+}
+
+.pd-btn-home{
+    position:relative;
+    overflow:hidden;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 24px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    text-decoration:none;
+    border:none;
+    background:#ffb703;
+    color:#5a3e00;
+    transition:opacity .15s,transform .1s;
+}
+
+.pd-btn-home::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transform:translateX(-120%);
+    transition:.6s;
+}
+
+.pd-btn-home:hover::before{
+    transform:translateX(120%);
+}
+
+.pd-btn-home:hover{
+    opacity:.9;
+}
+
+.pd-btn-home:active{
+    transform:scale(.97);
+}
+
+.pd-btn-reload{
+    position:relative;
+    overflow:hidden;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 24px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    text-decoration:none;
+    background:transparent;
+    color:#555;
+    border:0.5px solid rgba(0,0,0,0.15);
+    transition:background .15s,transform .1s;
+}
+
+.pd-btn-reload::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,183,3,.18),
+        transparent
+    );
+    transform:translateX(-120%);
+    transition:.6s;
+}
+
+.pd-btn-reload:hover::before{
+    transform:translateX(120%);
+}
+
+.pd-btn-reload:hover{
+    background:#fafafa;
+}
+
+.pd-btn-reload:active{
+    transform:scale(.97);
+}
+
+.pd-hint{
+    font-size:12px;
+    color:#aaa;
+}
+
+@media(max-width:480px){
+    .pd-error-card{
+        padding:2rem 1.5rem;
+        gap:1.2rem;
+    }
+    .pd-error-actions{
+        flex-direction:column;
+    }
+    .pd-btn-home,
+    .pd-btn-reload{
+        width:100%;
+        justify-content:center;
+    }
+}

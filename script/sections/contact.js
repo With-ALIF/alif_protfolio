@@ -1,3 +1,5 @@
+import { initializeContactForm } from '../../config/mailer.js';
+
 export function renderContact(contactData) {
   const contact = document.getElementById("contact");
   if (!contact || !contactData || !contactData.details) return;
@@ -5,9 +7,7 @@ export function renderContact(contactData) {
   const { email, location, socials } = contactData.details;
 
   contact.innerHTML = `
-    <p class="section-label">${contactData.label}</p>
     <h2 class="section-title">${contactData.title}</h2>
-    <p class="contact-description">${contactData.description}</p>
 
     <div class="contact-cards">
       <div class="contact-card">
@@ -57,10 +57,54 @@ ${socials?.telegram
   : ""}
 
     </div>
+
+    <form id="contact-form" class="contact-form">
+      <div class="form-group">
+       <h2 class="section-title"><span class="text-gradient">Get In Touch</span></h2>
+        <label for="name" class="form-label">Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          placeholder="Your Name" 
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="Your Email" 
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="subject" class="form-label">Subject</label>
+        <input 
+          type="text" 
+          id="subject" 
+          placeholder="Subject" 
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="message" class="form-label">Message</label>
+        <textarea 
+          id="message" 
+          placeholder="Your Message" 
+          rows="5" 
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="contact-submit-btn">Send Message</button>
+    </form>
   `;
+
+  
+  initializeContactForm();
 }
 
-/* ================= SVG ICONS ================= */
+
 
 const mailSVG = `
 <svg viewBox="0 0 24 24" width="22" height="22"

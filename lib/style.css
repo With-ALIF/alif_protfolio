@@ -6,4 +6,7 @@
 @import url("experience.css");
 @import url("project.css");
 @import url("skill.css");
-
+@import url("../app/main.css");
+@import url("../app/workflow.css");
+@import url("../tags/tags.css");
+@import url("../scroll/scroll.css");

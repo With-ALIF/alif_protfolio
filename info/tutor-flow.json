@@ -1,0 +1,136 @@
+{
+  "id": "tutorflow",
+  "title": "Tuition Hub BD",
+  "category": "Education Management",
+  "featured": true,
+  "status": "Completed",
+  "description": "A comprehensive platform to manage tuition hubs — tracking students, attendance, fees, and hub statistics in one centralized digital solution.",
+  "fullDescription": "TutorFlow is a full-featured tuition hub management system built to eliminate the hassle of manual record-keeping. It provides tuition center owners, individual tutors, and educational institutions with a streamlined dashboard to manage student profiles, mark daily attendance, monitor fee payments, and view hub-wide statistics. Built with React, TypeScript, and Firebase, TutorFlow delivers a responsive and real-time experience that lets educators focus on teaching rather than administration.",
+  
+  "thumbnail": "https://i.postimg.cc/pL1W46B8/tutor.png",
+  "demo": "https://tuition.mnr.bd/",
+  "github": "https://github.com/With-ALIF/tutorflow",
+
+
+  "technologies": [
+    {
+      "name": "React",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+    },
+    {
+      "name": "Firebase Firestore",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+    },
+    {
+      "name": "Vite",
+      "icon": "https://img.icons8.com/fluent/1200/vite.jpg"
+    },
+    {
+      "name": "lucide-react",
+      "icon": "https://i.postimg.cc/7hPSNkzP/lucide.png"
+    }
+  ],
+
+
+  "tags": [
+    "Education",
+    "Dashboard",
+    "Tuition Management",
+    "Attendance",
+    "Fee Tracking"
+  ],
+
+
+  "features": [
+    "Student Management: Maintain detailed student profiles including class, contact info, and enrollment data.",
+    "Attendance Tracking: Mark and review daily attendance with full historical records.",
+    "Fee Management: Monitor pending payments and view complete payment histories.",
+    "Dashboard Overview: Get real-time hub statistics and a summary of recent activities."
+  ],
+
+  "statistics": [
+    
+    { "label": "Core Modules", "value": "4" },
+    { "label": "Tech Stack", "value": "9" },
+    { "label": "Performance Score", "value": "95" },
+    { "label": "Security Score", "value": "94" }
+  ],
+
+ "challenges": [
+  "Scalable Firestore structure for multiple batches and students.",
+  "Real-time attendance sync without excessive Firestore read costs.",
+  "Intuitive UI for non-technical tuition center owners.",
+  "Secure role-based access for different user types.",
+  "Efficient fee tracking across many students simultaneously."
+],
+"solutions": [
+  "Hierarchical Firestore structure: hubs → batches → students.",
+  "Firestore listeners with optimistic UI to minimize reads.",
+  "Clean Tailwind + Framer Motion UI with low learning curve.",
+  "Firebase Authentication with role-based access control.",
+  "Centralized fee module with real-time payment state sync."
+],
+"results": [
+  "Eliminated manual attendance and fee record-keeping.",
+  "Single dashboard for all hub operations.",
+  "Real-time data sync with Firebase Firestore.",
+  "Secure, role-based login for tutors and admins.",
+  "Scalable foundation ready for parent portal and notifications."
+],
+
+  "timeline": [
+  {
+    "date": "Week 1",
+    "title": "Planning & Design",
+    "detail": "Defined requirements and designed Firestore data model and UI wireframes."
+  },
+  {
+    "date": "Week 2",
+    "title": "Authentication & Setup",
+    "detail": "Configured Vite + React + TypeScript, integrated Firebase Auth and Firestore."
+  },
+  {
+    "date": "Week 3",
+    "title": "Student Management",
+    "detail": "Built student profiles, enrollment flow, and batch management modules."
+  },
+  {
+    "date": "Week 4",
+    "title": "Attendance Tracking",
+    "detail": "Implemented daily attendance marking with real-time Firestore sync."
+  },
+  {
+    "date": "Week 5",
+    "title": "Fee Management & Dashboard",
+    "detail": "Developed fee monitoring, payment history, and hub statistics dashboard."
+  },
+  {
+    "date": "Week 6",
+    "title": "Polish & Deployment",
+    "detail": "Added Framer Motion animations, responsive UI refinements, and deployed production build."
+  }
+],
+
+  "gallery": [
+    {
+      "image": "https://i.postimg.cc/pL1W46B8/tutor.png",
+      "title": "Hub Dashboard Overview"
+    },
+    {
+      "image": "https://i.postimg.cc/LsCxzz2Y/tutor01.png",
+      "title": "Student Management Panel"
+    },
+    {
+      "image": "https://i.postimg.cc/fy4jKCFR/tutor02.png",
+      "title": "Attendance Tracking View"
+    },
+    {
+      "image": "https://i.postimg.cc/wvND7JBf/tutor023png.png",
+      "title": "Fee Management Screen"
+    }
+  ]
+}

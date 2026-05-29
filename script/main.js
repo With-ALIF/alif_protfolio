@@ -1,5 +1,5 @@
+import "./body.js"
 import { loadJSON } from "./utils/loadJSON.js"
-
 import { renderMeta } from "./sections/meta.js"
 import { renderHeader } from "./sections/header.js"
 import { renderHero } from "./sections/hero.js"
@@ -13,6 +13,16 @@ import { renderSkills } from "./sections/skills.js"
 import { renderReview } from "./sections/review.js"
 import { renderContact } from "./sections/contact.js"
 import { renderFooter } from "./sections/footer.js"
+import { renderWorkflow } from "./sections/workflow.js"
+import { initScrollToTop } from "../scroll/scroll.js"
+import "../service/service.js"
+
+const loadLucideScript = () => new Promise(resolve => {
+  const script = document.createElement("script")
+  script.src = "https://unpkg.com/lucide@latest"
+  script.onload = () => resolve()
+  document.head.appendChild(script)
+})
 
 Promise.all([
   loadJSON("data/meta.json"),
@@ -26,9 +36,11 @@ Promise.all([
   loadJSON("data/project.json"),
   loadJSON("data/skill.json"),
   loadJSON("data/tools.json"),
-  loadJSON("data/review.json"),   
+  loadJSON("data/review.json"),
   loadJSON("data/contact.json"),
-  loadJSON("data/footer.json")
+  loadJSON("data/footer.json"),
+  loadJSON("data/workflow.json"),
+  loadLucideScript()
 ]).then(([
   meta,
   logo,
@@ -43,7 +55,8 @@ Promise.all([
   tools,
   reviews,
   contact,
-  footer
+  footer,
+  workflow,
 ]) => {
   renderMeta(meta)
   renderHeader(logo, nav)
@@ -55,9 +68,11 @@ Promise.all([
   renderExperience(experience)
   renderProjects(projects)
   renderSkills(skills)
-  renderReview(reviews)           
+  renderReview(reviews)
   renderContact(contact)
   renderFooter(logo, footer)
+  renderWorkflow(workflow)
+  initScrollToTop()
 }).catch(error => {
   console.error("Data loading error:", error)
 })

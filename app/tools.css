@@ -1,8 +1,12 @@
+#tools {
+  padding: 2rem 0 0;
+}
+
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1.4rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .tool-card {

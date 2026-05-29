@@ -1,8 +1,9 @@
 export function renderHero(hero) {
   heroSubtitle.textContent = hero.subtitle
 
+  const line1 = hero.title.line1 ? `<span>${hero.title.line1}</span>` : ""
   heroTitle.innerHTML = `
-    <span>${hero.title.line1}</span>
+    ${line1}
     <span class="text-gradient">${hero.title.line2}</span>
   `
 

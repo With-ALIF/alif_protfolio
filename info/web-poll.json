@@ -1,0 +1,132 @@
+{
+  "id": "web-poll",
+  "title": "Web Poll",
+  "featured": true,
+  "status": "Under Active Development",
+  "description": "A comprehensive, AI-powered full-stack automation platform designed to generate, manage, and programmatically deploy interactive quiz polls to Telegram channels.",
+  "fullDescription": "TeleQuiz is an advanced, high-density dashboard system that streamlines the operational pipeline for content creators managing educational Telegram channels. Integrated with the Google GenAI SDK (Gemini Pro), it converts unstructured raw text directly into normalized, schema-compliant quiz datasets. The application is built around a secure multi-tenant architecture on React and Firebase, incorporating robust multi-role permissions, non-blocking operational queues to counter Telegram's strict rate limits, and an array of adjacent desktop publishing utilities including programmatic CSV transformers, structural PDF Exam Paper builders, and a dynamic canvas-based Photocard design studio.",
+  "thumbnail": "https://i.postimg.cc/bvDdtxq3/polldashboard.png",
+  "demo": "https://poll.mnr.bd/",
+  "github": "https://github.com/With-ALIF/Web_Poll",
+
+
+  "technologies": [
+    {
+      "name": "Vite",
+      "icon": "https://img.icons8.com/fluent/1200/vite.jpg"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+    },
+    {
+      "name": "Firebase Firestore",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+    },
+    {
+      "name": "Google GenAI SDK (Gemini Pro)",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+    },
+    {
+      "name": "Lucide React",
+      "icon": "https://i.postimg.cc/7hPSNkzP/lucide.png"
+    }
+  ],
+
+  
+  "tags": [
+    "AI-Content Generation",
+    "Telegram Automation",
+    "MCQ Content Management",
+    "Role-Based Access Control",
+    "Cloud Run Application"
+  ],
+
+
+  "features": [
+  "AI quiz generation with real-time JSON parsing and character limit validation.",
+  "Manual quiz editor with transactional option and explanation validation.",
+  "Telegram queue engine for batched poll and photo message routing.",
+  "Printable exam paper generator with watermark and 2-column layout."
+  ],
+
+
+  "statistics": {
+    "Tech Stack": 10,
+    "Components": 34,
+    "Performance": 96,
+    "Security": 95
+  },
+
+  "gallery": [
+    {
+      "image": "https://i.postimg.cc/bvDdtxq3/polldashboard.png",
+      "title": "Homepage Overview"
+    },
+    {
+      "image": "https://i.postimg.cc/zvVqs5Vm/channel09099.png",
+      "title": "Channel Page Interface"
+    },
+    {
+      "image": "https://i.postimg.cc/mkzGdw5r/exam.png ",
+      "title": "Exam Paper Generator"
+    },
+    {
+      "image": "https://i.postimg.cc/bvmcpM7K/admin.png",
+      "title": "Admin CMS Dashboard"
+    }
+  ],
+
+"challenges": [
+  "Preventing double-voting without requiring intrusive user authentication.",
+  "Handling database write spikes during high-traffic viral polling events.",
+  "Syncing real-time poll results across thousands of concurrent browsers.",
+  "Mitigating automated vote manipulation from headless browser bots.",
+  "Aggregating multi-attribute vote metrics in real-time under heavy load."
+],
+"solutions": [
+  "Hybrid client fingerprinting with web crypto signatures and anonymized IP hashing to block duplicate votes without forced login.",
+  "Redis write-behind cache to absorb voting bursts, decoupling live writes from the primary database.",
+  "SSE-based pub/sub with 1-second debounced aggregation for real-time UI updates without overloading connections.",
+  "Cloudflare Turnstile with behavior analytics to detect and block headless browser automation at the gateway.",
+  "Optimized aggregation queries with indexed counters and caching layers to maintain low-latency reads under load."
+],
+
+  "timeline": [
+  {
+    "title": "Architecture & Core Database Design",
+    "detail": "Established the core system layout, set up the multi-tenant database infrastructure, and configured strict user access rules to guarantee data isolation.",
+    "date": "Phase 1"
+  },
+  {
+    "title": "Authentication & Multi-Role Pipeline",
+    "detail": "Implemented secure identity workflows alongside granular access matrices to isolate admin command dashboards from standard user views.",
+    "date": "Phase 2"
+  },
+  {
+    "title": "Real-Time Event Synchronization Engine",
+    "detail": "Built live stream adapters linking local view managers with background transactional collections to enable lag-free state updates across active user nodes.",
+    "date": "Phase 3"
+  },
+  {
+    "title": "Optimization & Concurrent Load Mitigation",
+    "detail": "Deployed asynchronous write-behind routines to absorb concurrent submission traffic spikes, preventing row-level connection locks.",
+    "date": "Phase 4"
+  },
+  {
+    "title": "Content Integrity & Anti-Bot Shield",
+    "detail": "Integrated behavioral analysis layers, client side tracking, and length validation routines to insulate submission entry points from automated spam attacks.",
+    "date": "Phase 5"
+  },
+  {
+    "title": "Desktop Publishing & Canvas Subsystems",
+    "detail": "Rolled out adjacent high-density tools including multi-column layout builders, customizable watermarks, and programmatic string modifiers.",
+    "date": "Phase 6"
+  },
+  {
+    "title": "Global Analytics Monitoring & Deployment",
+    "detail": "Finalized the unified metric dashboards, launched the containerized infrastructure on secure cloud infrastructure, and initialized live audit logs.",
+    "date": "Phase 7"
+  }
+]
+}

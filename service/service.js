@@ -14,9 +14,8 @@ function renderService(serviceData) {
   if (!serviceContainer || !serviceData?.items?.length) return;
 
   serviceContainer.innerHTML = `
-    <h2 class="section-tile">
-      ${serviceData.title.split(" ")[0]}
-      <span class="text-accent">${serviceData.title.split(" ").slice(1).join(" ")}</span>
+    <h2 class="section-title">
+      <span class="text-gradient">Services</span>
     </h2>
 
     <div class="service-list">

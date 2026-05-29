@@ -14,8 +14,11 @@ export function renderExperience(experienceData) {
     <div class="experience-grid">
       ${experienceData.map(e => `
         <div class="experience-card">
+          <div class="experience-header">
+            ${e.logo ? `<img src="${e.logo}" alt="${e.company} logo" class="experience-logo">` : ""}
+            <p class="experience-company">${e.company}</p>
+          </div>
           <h3 class="experience-role">${e.role}</h3>
-          <p class="experience-company">${e.company}</p>
           <span class="experience-duration">${e.duration}</span>
           <p class="experience-description">${e.description}</p>
         </div>

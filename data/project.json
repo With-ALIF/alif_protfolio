@@ -5,65 +5,49 @@
       "title": "Portfolio Website",
       "description": "A modern responsive portfolio built with clean UI and animations.",
       "tags": ["HTML", "CSS", "JavaScript"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-web.png?raw=true",
+      "image": "https://i.postimg.cc/63CxB1D7/ui900.png",
       "github": "https://github.com/With-ALIF/alif_protfolio",
-      "demo": "https://alif-protfolio.vercel.app/"
+      "demo": "https://alif.mnr.bd/"
     },
     {
       "title": "Alif Tools",
       "description": "ALIF Tools is a modern, fast, and privacy-focused online platform for processing PDF and image files with ease.\nIt is designed to be simple, secure, and completely free for everyone.",
-      "tags": ["Typescript", "HTML"],
+      "tags": ["Typescript", "React"],
       "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/alif-tools.png?raw=true",
       "github": "https://github.com/With-ALIF/alif-tools",
       "demo": "https://alif-tools.vercel.app/"
     },
     {
-      "title": "BG Remover",
-      "description": "Background Remover is a tool to remove backgrounds from images easily and quickly.\nIt is designed to be simple, secure, and completely free for everyone.",
-      "tags": ["Typescript", "HTML"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/remove-bg.png?raw=true",
-      "github": "https://github.com/With-ALIF/remove-background",
-      "demo": "https://remove-background-free.vercel.app/"
+      "title": "Alif Blog",
+      "description": "A dynamic digital space by Alif, delivering curated tech insights, breaking industry news, and deep-dive tutorials for the modern web.",
+      "tags": ["Typescript", "React"],
+      "image": "https://i.postimg.cc/6qwX4cy3/blog009.png",
+      "github": "https://github.com/With-ALIF/blog_site",
+      "demo": "https://alif-blog.vercel.app/"
     },
     {
-      "title": "Hall Dining Management System",
-      "description": "Hall Dining Management System is a web application designed to streamline the management of dining services in university halls.\nIt provides an efficient way to handle reservations, orders, and inventory.",
-      "tags": ["HTML", "JavaScript"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/hall-management.png?raw=true",
-      "github": "https://github.com/With-ALIF/hall-dining-management",
-      "demo": "https://hall-dining-management.vercel.app/"
+      "title": "Tutor Flow",
+      "description": "Tutor Flow is an interactive platform that connects tutors with students, providing structured learning paths and session management.",
+      "tags": ["React", "Typescript"],
+      "image": "https://github.com/alif982/picture/blob/main/New%20folder/tutorflow.webp?raw=true",
+      "github": "https://github.com/With-ALIF/tutorflow",
+      "demo": "https://tuition.mnr.bd/"
+    },
+     {
+      "title": "Web Poll",
+      "description": "Web Poll is a web-based polling application that allows users to create and participate in online polls.",
+      "tags": ["Typescript", "React", "Firebase"],
+      "image": "https://i.postimg.cc/bvDdtxq3/polldashboard.png",
+      "github": "https://github.com/With-ALIF/Web_Poll",
+      "demo": "https://poll.mnr.bd/"
     },
     {
-      "title": "Admission Tool Hub",
-      "description": "Admission Tools Hub is a comprehensive web platform that centralizes all essential tools for university admissions. It offers a variety of features to assist students in managing their application process efficiently.",
-      "tags": ["HTML", "JavaScript"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/admission-tool.png?raw=true",
-      "github": "https://github.com/With-ALIF/Admission-Journey",
-      "demo": "https://admission-study.netlify.app/"
-    },
-    {
-      "title": "E - Commerce Website",
-      "description": " E-Commerce Website is a modern and responsive online store built with HTML and CSS. It features a clean UI design and smooth animations to enhance user experience",
-      "tags": ["HTML", "CSS"],
-      "image": "https://github.com/With-ALIF/E-Commerce/blob/main/picture/e-comerce.png?raw=true",
-      "github": "https://github.com/With-ALIF/E-Commerce",
-      "demo": "https://with-alif.github.io/E-Commerce/"
-    },
-    {
-      "title": "Password Generator",
-      "description": "Password Generator is a tool to generate strong and secure passwords with customizable options.",
-      "tags": ["HTML", "JavaScript"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/password-generatot.png?raw=true",
-      "github": "https://github.com/With-ALIF/password_generator",
-      "demo": "https://with-alif.github.io/password_generator/"
-    },
-   {
-      "title": "Vehicle Management Dashboard",
-      "description": "Vehicle Management Dashboard is a web application that provides a centralized platform for managing vehicle information, tracking maintenance schedules, and monitoring vehicle performance.",
-      "tags": ["Typescript", "HTML"],
-      "image": "https://github.com/With-ALIF/logo_zone/blob/main/project/vehicle.png?raw=true",
-      "github": "https://github.com/With-ALIF/vehicle-management-dashboard",
-      "demo": "https://vehicle-management-dashboard.vercel.app/"
+      "title": "SOT Payment Management System",
+      "description": "A comprehensive payment management system for handling various payment gateways and transactions.",
+      "tags": ["Typescript", "React", "Firebase"],
+      "image": "https://i.postimg.cc/cLjmCdmJ/sot0000.png",
+      "github": "https://github.com/With-ALIF/sot_ledger",
+      "demo": "https://paymet-sot.vercel.app/"
     }
   ]
 }

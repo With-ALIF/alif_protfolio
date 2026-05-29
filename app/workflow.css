@@ -1,0 +1,166 @@
+#workflow-section {
+  padding: 1.5rem 0;
+}
+
+#workflow-section .section-title {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.workflow-timeline {
+  position: relative;
+  padding-left: 0;
+}
+
+.workflow-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #ff6a00, #ee0979);
+  border-radius: 2px;
+}
+
+.workflow-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.workflow-item:last-child {
+  margin-bottom: 0;
+}
+
+.workflow-dot {
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  border: 3px solid #1a1a1a;
+  border-radius: 50%;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(255, 106, 0, 0.4);
+}
+
+.workflow-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-left: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.workflow-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.workflow-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 106, 0, 0.3);
+}
+
+.workflow-year {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #d4af37;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-card .workflow-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.workflow-role {
+  font-size: 0.9rem;
+  color: hsl(40, 10%, 70%);
+  margin: 0.5rem 0 1rem;
+}
+
+.workflow-status {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
+  color: #1a1a1a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .workflow-item {
+    padding-left: 1.5rem;
+  }
+
+  .workflow-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .workflow-card {
+    padding: 1.2rem;
+  }
+
+  .workflow-card .workflow-title {
+    font-size: 1rem;
+  }
+
+  .workflow-role {
+    font-size: 0.8rem;
+  }
+
+  .workflow-year {
+    font-size: 0.75rem;
+  }
+
+  .workflow-status {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .workflow-item {
+    padding-left: 1.2rem;
+  }
+
+  .workflow-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .workflow-card {
+    padding: 1rem;
+  }
+
+  .workflow-card .workflow-title {
+    font-size: 0.9rem;
+  }
+
+  .workflow-role {
+    font-size: 0.75rem;
+  }
+
+  .workflow-year {
+    font-size: 0.7rem;
+  }
+
+  .workflow-status {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.7rem;
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "id": "payment-management-dashboard",
+  "title": "Payment Management Dashboard",
+  "category": "Finance & Administration",
+  "featured": true,
+  "status": "Completed",
+  "description": "A modern, responsive payment management dashboard for tracking student payments, filtering transactions, and exporting PDF reports.",
+  "fullDescription": "A full-featured Payment Management Dashboard built with React, TypeScript, and Tailwind CSS. It enables admins to manage student payments across multiple courses and payment methods (Bkash, Nagad, Rocket, Bank), with powerful search, sort, filter, bulk delete, and manual edit capabilities. Integrated with Supabase for real-time data and Telegram for instant payment notifications and summary reports. Supports professional PDF export with transaction tables and summary stats.",
+  "thumbnail": "https://i.postimg.cc/cLjmCdmJ/sot0000.png",
+  "demo": "https://paymet-sot.vercel.app/",
+  "github": "https://github.com/With-ALIF/sot_ledger",
+
+
+  "technologies": [
+    {
+      "name": "React",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+    },
+    {
+      "name": "Firebase",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+    },
+    {
+      "name": "Lucide React",
+      "icon": "https://i.postimg.cc/7hPSNkzP/lucide.png"
+    },
+ 
+    {
+      "name": "jsPDF",
+      "icon": "https://cdn-icons-png.flaticon.com/512/4726/4726010.png"
+    }
+  ],
+
+
+  "tags": [
+    "Dashboard",
+    "Finance",
+    "Payment",
+    "PDF Export",
+    "Telegram Bot",
+    "Admin Panel"
+  ],
+
+"features": [
+  "Dashboard stats with method-wise payment breakdown.",
+  "Search, sort, and filter transactions by multiple attributes.",
+  "Course management with per-course payment statistics.",
+  "PDF export and Telegram notifications with summary reports."
+],
+
+  "statistics": [
+    { "label": "Payment Methods", "value": "5" },
+    { "label": "Technologies Used", "value": "9" },
+    { "label": "Export Format", "value": "PDF" },
+    { "label": "Future Improvements", "value": "4" }
+  ],
+  "challenges": [
+    "Managing real-time payment data across multiple courses and methods simultaneously.",
+    "Building a secure admin panel without exposing Telegram bot credentials in code.",
+    "Generating professional PDF reports with dynamic filtered data.",
+    "Handling bulk operations (delete/edit) reliably with Firebase under concurrent use.",
+    "Designing a mobile-first responsive UI with glassmorphism and smooth animations."
+  ],
+  "solutions": [
+    "Used Firebase real-time subscriptions to keep payment data in sync across sessions.",
+    "Built dynamic Telegram settings UI so bot token and channel ID are stored in the database, not hardcoded.",
+    "Integrated jsPDF + jspdf-autotable to generate structured PDF reports with title, date, totals, and payment table.",
+    "Implemented optimistic UI updates with confirmation dialogs for safe bulk delete and edit operations.",
+    "Leveraged Tailwind CSS + Framer Motion for a responsive, animated glassmorphism design system."
+  ],
+  "results": [
+    "Centralized payment tracking across all courses and methods in one dashboard.",
+    "Eliminated hardcoded credentials with dynamic admin-controlled Telegram settings.",
+    "Enabled one-click professional PDF export for filtered payment reports.",
+    "Delivered a smooth, mobile-first UI with real-time data and instant notifications.",
+    "Established a scalable foundation ready for CSV export, pagination, and analytics charts."
+  ],
+  "timeline": [
+    {
+      "date": "Week 1",
+      "title": "Planning & Setup",
+      "detail": "Defined features, set up React + TypeScript + Vite, and configured Supabase schema."
+    },
+    {
+      "date": "Week 2",
+      "title": "Authentication & Admin Panel",
+      "detail": "Implemented secure admin login and dynamic Telegram bot settings UI."
+    },
+    {
+      "date": "Week 3",
+      "title": "Payment Management",
+      "detail": "Built payment list with search, sort, filter, manual edit, and bulk delete."
+    },
+    {
+      "date": "Week 4",
+      "title": "Course Management",
+      "detail": "Added course CRUD with logo support, course-wise payment linking and statistics."
+    },
+    {
+      "date": "Week 5",
+      "title": "PDF Export & Notifications",
+      "detail": "Integrated jsPDF for payment reports and Telegram alerts for new payments and summaries."
+    },
+    {
+      "date": "Week 6",
+      "title": "Polish & Deployment",
+      "detail": "Refined glassmorphism UI, added Framer Motion animations, tested on mobile, and deployed."
+    }
+  ],
+  "gallery": [
+    {
+      "image": "https://i.postimg.cc/cLjmCdmJ/sot0000.png",
+      "title": "Dashboard Overview"
+    },
+    {
+      "image": "https://i.postimg.cc/V6S56cDh/000000.png",
+      "title": "Payment List & Filters"
+    }
+  ]
+}

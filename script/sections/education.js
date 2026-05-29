@@ -6,7 +6,7 @@ export function renderEducationSection(educationData) {
   }
 
   education.innerHTML = `
-    <h2 class="section-tite">
+    <h2 class="section-title">
       Academic <span class="text-gradient">Background</span>
     </h2>
 

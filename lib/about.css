@@ -3,12 +3,17 @@
 }
 
 #about .section-label {
-  font-size: 3rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: hsl(38, 92%, 50%);
-  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1.5rem;
 }
 
 #about .section-title {
@@ -21,7 +26,6 @@
 }
 
 #about .about-text {
-  max-width: 720px;
   font-size: 1.05rem;
   line-height: 1.8;
   color: hsl(40, 10%, 70%);
@@ -75,13 +79,15 @@
 
 @media (max-width: 767px) {
   #about .section-label {
-    font-size: 1.5rem;
-    letter-spacing: 0.18em;
-    font-weight: 600;
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+    white-space: normal;
+    overflow: visible;
   }
 
   #about .section-title {
     font-size: clamp(1.8rem, 8vw, 2.2rem);
+    white-space: normal;
+    overflow: visible;
   }
 
   #about .about-text {

@@ -8,7 +8,7 @@ export function renderReview(reviewData) {
   }
  
   reviewHeader.innerHTML = `
-    <span class="review-label">Testimonials</span>
+    <h2 class="section-title">Test<span class="text-gradient">imonials</span></h2>
   `;
 
  
@@ -47,7 +47,7 @@ export function renderReview(reviewData) {
     </div>
   `;
 
-  // Initialize functionality after a short delay to ensure DOM is ready
+  
   setTimeout(() => {
     initializeReviewSection();
   }, 50);
@@ -85,7 +85,7 @@ function initializeReviewSection() {
     return;
   }
 
-  // Check if mobile
+  
   const width = window.innerWidth || document.documentElement.clientWidth;
   const isMobile = width <= 768;
 
@@ -96,7 +96,7 @@ function initializeReviewSection() {
     }
   }
 
-  // Dot click handlers
+  
   dots.forEach((dot, i) => {
     const clickHandler = () => {
       if (cards[i]) {
@@ -111,7 +111,7 @@ function initializeReviewSection() {
 
     dot.addEventListener("click", clickHandler);
     
-    // Touch support for mobile
+    
     if (isMobile) {
       dot.addEventListener("touchstart", (e) => {
         e.preventDefault();
@@ -120,7 +120,7 @@ function initializeReviewSection() {
     }
   });
 
-  // Scroll tracking for active dot
+  
   let scrollTimeout;
   grid.addEventListener("scroll", () => {
     clearTimeout(scrollTimeout);
@@ -144,7 +144,7 @@ function initializeReviewSection() {
     }, 100);
   });
 
-  // Touch swipe support for better mobile experience
+  
   if (isMobile) {
     let touchStartX = 0;
     let touchEndX = 0;
@@ -163,20 +163,20 @@ function initializeReviewSection() {
       const diff = touchStartX - touchEndX;
 
       if (Math.abs(diff) > swipeThreshold) {
-        // Swiped left or right
+        
         const currentIndex = Array.from(dots).findIndex(dot => 
           dot.classList.contains("active")
         );
 
         if (diff > 0 && currentIndex < cards.length - 1) {
-          // Swiped left - next card
+          
           cards[currentIndex + 1].scrollIntoView({
             behavior: "smooth",
             block: "nearest",
             inline: "center"
           });
         } else if (diff < 0 && currentIndex > 0) {
-          // Swiped right - previous card
+          
           cards[currentIndex - 1].scrollIntoView({
             behavior: "smooth",
             block: "nearest",
@@ -187,7 +187,7 @@ function initializeReviewSection() {
     }
   }
 
-  // Intersection Observer for fade-in animation
+  
   if ('IntersectionObserver' in window) {
     const observerOptions = {
       threshold: 0.1,
@@ -211,16 +211,16 @@ function initializeReviewSection() {
     });
   }
 
-  // Set initial active dot
+  
   setActiveDot(0);
 }
 
-// Handle window resize
+
 let resizeTimeout;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
-    // Re-initialize if needed
+    
     const reviewGrid = document.getElementById("reviewGrid");
     if (reviewGrid) {
       initializeReviewSection();

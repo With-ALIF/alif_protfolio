@@ -1,0 +1,124 @@
+{
+  "id": "alif-blog",
+  "title": "Alif Blog",
+  "featured": true,
+  "status": "Under Development",
+
+  "description": "Alif Blog — A modern portfolio blog showcasing web development projects, tech insights, tutorials, and creative digital experiences by Alif.",
+  "fullDescription": "Alif Blog is a highly structured, performance-oriented blogging ecosystem optimized for multi-language display (English and Bangla). Built on Next.js 15 and Firebase, it addresses localization challenges by enabling asynchronous, non-blocking database writes alongside automated AI processes. The platform features an AI translation engine to synchronize bilingual copy seamlessly, a vector-based semantic search architecture that identifies content by programmatic contextual meaning rather than literal keyword matches, and a comprehensive administrative command center.",
+  
+  "thumbnail": "https://i.postimg.cc/6qwX4cy3/blog009.png",
+  "demo": "https://alif-blog.vercel.app/",
+  "github": "https://github.com/With-ALIF/blog_site",
+
+  "technologies": [
+    {
+      "name": "Next.js 15",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+    },
+    {
+      "name": "React 19",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+    },
+    {
+      "name": "Firebase Firestore",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/tailwind.png?raw=true"
+    },
+    {
+      "name": "Vite",
+      "icon": "https://img.icons8.com/fluent/1200/vite.jpg"
+    }
+  ],
+
+ "tags": [
+    "Full-Stack Development",
+    "AI-Powered Workflow",
+    "Bilingual (Bengali/English)",
+    "CMS Dashboard",
+    "Database Management"
+  ],
+
+"features": [
+  "Bilingual switching (English ↔ Bangla) via dynamic Context Providers.",
+  "AI semantic search using cosine-similarity vector embeddings.",
+  "Admin workspace with Markdown editor, split preview, and post scheduling.",
+  "Nested comment system with automated avatar generation."
+],
+
+
+  "statistics": {
+    "Tech Stack": 12,
+    "Components": 45,
+    "Performance": 95,
+    "Accessibility": 98
+  },
+
+   "gallery": [
+    {
+      "image": "https://i.postimg.cc/Wz5k4TV3/blogpage890.png",
+      "title": "Blog Page Layout"
+    },
+    {
+      "image": "https://i.postimg.cc/k5PBqBSZ/admincms.png",
+      "title": "Admin CMS Dashboard"
+    }
+  ],
+
+
+ "challenges": [
+  "Maintaining synchronized bilingual content without causing UI latency.",
+  "Improving semantic search accuracy across translated and culturally varied queries.",
+  "Preventing race conditions in real-time multilingual data streams.",
+  "Avoiding UI freezes during concurrent Firebase operations and localization updates.",
+  "Reducing cold-start overhead for vector embedding execution in serverless environments."
+],
+
+"solutions": [
+  "Built a non-blocking async architecture for smooth Firebase operations.",
+  "Optimized bilingual synchronization for fast multilingual rendering.",
+  "Integrated AI-powered semantic search using vector embeddings.",
+  "Implemented cosine similarity matching for contextual content discovery.",
+  "Reduced serverless cold-start latency for real-time performance."
+],
+
+"timeline": [
+  {
+    "date": "Phase 1",
+    "title": "Project Foundation",
+    "detail": "Initialized Next.js 15 architecture, multilingual routing, and Tailwind-Shadcn UI system."
+  },
+  {
+    "date": "Phase 2",
+    "title": "Localization Engine",
+    "detail": "Built bilingual state management and dynamic English-Bangla content synchronization."
+  },
+  {
+    "date": "Phase 3",
+    "title": "Database Infrastructure",
+    "detail": "Implemented asynchronous Firebase CRUD operations with optimized collection structures."
+  },
+  {
+    "date": "Phase 4",
+    "title": "AI Semantic System",
+    "detail": "Integrated Google Genkit pipelines with vector embedding semantic search."
+  },
+  {
+    "date": "Phase 5",
+    "title": "Admin Command Center",
+    "detail": "Developed advanced dashboards, markdown editors, analytics, and scheduling modules."
+  },
+  {
+    "date": "Phase 6",
+    "title": "Performance Optimization",
+    "detail": "Optimized serverless execution, reduced cold-start latency, and improved rendering stability."
+  }
+]
+}

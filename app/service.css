@@ -1,22 +1,16 @@
 #service-section {
-  padding: 3.2rem 1.5rem;
+  padding: 1rem 1.5rem 1rem;
 }
 
-.section-tile {
-  margin-top: 0;
+#service-section .section-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: hsl(0, 0%, 96%);
   margin-bottom: 2rem;
   text-align: left;
-  font-size: clamp(2.1rem, 4vw, 2.6rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #ff9a1f, #ff6a00, #ff2d6f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.section-title .text-accent {
-  color: #ff9a1f;
 }
 
 .service-list {
@@ -60,7 +54,7 @@
 .service-toggle {
   font-size: 1.5rem;
   font-weight: 500;
-  color: #22d3ee;
+  color: #ffb703;
   transition: transform 0.3s ease;
 }
 
@@ -84,10 +78,10 @@
 
 @media (max-width: 480px) {
   #service-section {
-    padding: 2.4rem 1rem;
+    padding: 0.5rem 1rem 1rem;
   }
 
-  .section-title {
+  #service-section .section-title {
     margin-bottom: 1.6rem;
   }
 
