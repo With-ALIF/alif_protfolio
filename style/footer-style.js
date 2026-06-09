@@ -1,3 +1,4 @@
+const css = `
 .footer {
   width: 100%;
   margin: 0;
@@ -31,4 +32,12 @@
   .footer {
     padding: 1.8rem 1rem;
   }
+}
+`;
+
+if (!document.getElementById("footer-style")) {
+  const style = document.createElement("style");
+  style.id = "footer-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

@@ -56,12 +56,13 @@ alif_portfolio/
 ├── data/         # Portfolio data (JSON)
 ├── info/         # Project information files
 ├── lib/          # Global and section styles
-├── project/
+├── project/      # Project related logic
 ├── script/
 │   ├── sections/ # UI section Rendering 
 │   └── utils/    # Helper function
 ├── scroll/       # Scroll-to-top functionality
 ├── service/      # Services configuration
+├── style/        # Additional Visual Styling Logic
 ├── tags/         # Dynamic tag system
 │
 ├── index.html

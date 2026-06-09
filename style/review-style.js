@@ -1,3 +1,4 @@
+const css = `
 #review-section {
   padding: 0 0 0;
   margin-top: -1rem;
@@ -289,4 +290,12 @@
   .review-grid {
     scroll-behavior: auto;
   }
+}
+`;
+
+if (!document.getElementById("review-style")) {
+  const style = document.createElement("style");
+  style.id = "review-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

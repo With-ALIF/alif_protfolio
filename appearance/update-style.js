@@ -1,3 +1,4 @@
+const css = `
 :root{
   --bg:#04070f;
   --card:#0b1120;
@@ -842,4 +843,12 @@ html,body{
     font-size:1.8rem;
   }
 
+}
+`;
+
+if (!document.getElementById("update-style")) {
+  const style = document.createElement("style");
+  style.id = "update-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

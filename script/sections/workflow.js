@@ -1,3 +1,5 @@
+import "../../style/workflow-style.js";
+
 export function renderWorkflow(data) {
   const container = document.getElementById("workflow-container");
   if (!container || !data) return;

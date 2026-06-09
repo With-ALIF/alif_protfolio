@@ -63,4 +63,4 @@ function renderService(serviceData) {
   });
 }
 
-loadService();
+export { loadService };

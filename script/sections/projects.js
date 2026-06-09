@@ -13,6 +13,7 @@ const externalLinkIcon = `
   <line x1="10" y1="14" x2="21" y2="3"/>
 </svg>`;
 
+import "../../appearance/project-style.js";
 import { renderProjectTags } from "../../tags/tags.js";
 
 const detailsIcon = `

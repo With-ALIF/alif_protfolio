@@ -1,3 +1,4 @@
+const css = `
 #projects-section {
   padding: 2rem 0 0;
 }
@@ -148,4 +149,12 @@
     height: clamp(13px, 3.5vw, 15px) !important;
     flex-shrink: 0;
   }
+}
+`;
+
+if (!document.getElementById("project-style")) {
+  const style = document.createElement("style");
+  style.id = "project-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

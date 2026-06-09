@@ -1,4 +1,5 @@
 import { initializeContactForm } from '../../config/mailer.js';
+import "../../style/contact-style.js";
 
 export function renderContact(contactData) {
   const contact = document.getElementById("contact");

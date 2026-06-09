@@ -1,3 +1,4 @@
+const css = `
 #contact {
   margin-top: 3rem;
 }
@@ -319,4 +320,12 @@
     gap: 1.75rem;
     justify-items: center;
   }
+}
+`;
+
+if (!document.getElementById("contact-style")) {
+  const style = document.createElement("style");
+  style.id = "contact-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

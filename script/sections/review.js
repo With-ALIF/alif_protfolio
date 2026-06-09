@@ -1,3 +1,5 @@
+import "../../style/review-style.js";
+
 export function renderReview(reviewData) {
   const reviewHeader = document.getElementById("reviewHeader");
   const reviewContainer = document.getElementById("reviewContainer");

@@ -1,3 +1,5 @@
+import "../style/scroll-style.js";
+
 export function initScrollToTop() {
   const btn = document.createElement('button');
   btn.className = 'scroll-to-top-btn';
