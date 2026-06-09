@@ -1,4 +1,7 @@
 import { renderProjectTags } from '../tags/tags.js';
+import externalLinkIcon from "../icons/external-link-icon.js";
+import githubIcon from "../icons/github-icon.js";
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -122,12 +125,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     <p class="pd-hero-desc">${project.description}</p>
 
     <div class="pd-hero-actions">
-        <a href="${project.demo}" target="_blank" class="btn btn-success">
-            <i class="fas fa-eye"></i> Live Demo
+         <a href="${project.demo}" target="_blank" class="btn btn-success">
+            ${externalLinkIcon}
+            <span>Live Demo</span>
         </a>
 
         <a href="${project.github}" target="_blank" class="btn btn-danger">
-            <i class="fab fa-github"></i> Source Code
+            ${githubIcon}
+            <span>Github Code</span>
         </a>
     </div>
 

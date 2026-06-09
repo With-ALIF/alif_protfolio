@@ -49,24 +49,28 @@ Supports dedicated project pages with dynamically generated content, repositorie
 ## Repository Structure
 
 ```yaml
+
 alif_portfolio/
-├── app/          # Component-specific styles
-├── config/       #  E-mail Telegram Configuration and integrations
-├── core/         # Core application logic
-├── data/         # Portfolio data (JSON)
-├── info/         # Project information files
-├── lib/          # Global and section styles
-├── project/      # Project related logic
+├── app/              # Component-specific styles
+├── appearance/       # Reusable Styling Utilities
+├── config/           # Email, Telegram, and integration settings
+├── core/             # Core application logic
+├── data/             # Portfolio data (JSON)
+├── icons/            # Shared SVG icons used across the application
+├── info/             # Project information files (JSON)
+├── lib/              # Global and section styles
+├── project/          # Project-related logic
 ├── script/
-│   ├── sections/ # UI section Rendering 
-│   └── utils/    # Helper function
-├── scroll/       # Scroll-to-top functionality
-├── service/      # Services configuration
-├── style/        # Additional Visual Styling Logic
-├── tags/         # Dynamic tag system
+│   ├── sections/     # UI section rendering
+│   └── utils/        # Helper functions
+├── scroll/           # Scroll-to-top functionality
+├── service/          # Service configurations
+├── style/            # Additional visual styling logic
+├── tags/             # Dynamic tag system
 │
-├── index.html
-└── README.md                     # Additional project information
+├── index.html        # Main application entry point
+└── README.md         # Project documentation
+
 ```
 
 ---

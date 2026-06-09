@@ -221,7 +221,15 @@ html,body{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-.pd-wrapper .btn i{font-size:.9rem}
+.pd-wrapper .btn i{
+  font-size:.9rem
+}
+
+.pd-hero-actions svg{
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+}
 
 
 .pd-wrapper .pd-detail-section{
@@ -614,11 +622,26 @@ html,body{
 .pd-wrapper .pd-project-hero{
     animation-delay:.04s
 }
-.pd-wrapper .pd-detail-section:nth-child(2){animation-delay:.09s}
-.pd-wrapper .pd-detail-section:nth-child(3){animation-delay:.14s}
-.pd-wrapper .pd-detail-section:nth-child(4){animation-delay:.19s}
-.pd-wrapper .pd-detail-section:nth-child(5){animation-delay:.24s}
-.pd-wrapper .pd-two-col{animation:fadeUp .65s cubic-bezier(.22,.68,0,1.2) .19s both}
+
+.pd-wrapper .pd-detail-section:nth-child(2){
+  animation-delay:.09s
+}
+
+.pd-wrapper .pd-detail-section:nth-child(3){
+  animation-delay:.14s
+}
+
+.pd-wrapper .pd-detail-section:nth-child(4){
+  animation-delay:.19s
+}
+
+.pd-wrapper .pd-detail-section:nth-child(5){
+  animation-delay:.24s
+}
+
+.pd-wrapper .pd-two-col{
+  animation:fadeUp .65s cubic-bezier(.22,.68,0,1.2) .19s both
+}
 
 
 @media (max-width:992px){
