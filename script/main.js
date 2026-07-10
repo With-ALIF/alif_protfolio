@@ -15,7 +15,7 @@ import { renderContact } from "./sections/contact.js"
 import { renderFooter } from "./sections/footer.js"
 import { renderWorkflow } from "./sections/workflow.js"
 import { initScrollToTop } from "../scroll/scroll.js"
-import "../service/service.js"
+import { loadService } from "../service/service.js"
 
 const loadLucideScript = () => new Promise(resolve => {
   const script = document.createElement("script")
@@ -71,7 +71,8 @@ Promise.all([
   renderReview(reviews)
   renderContact(contact)
   renderFooter(logo, footer)
-  renderWorkflow(workflow)
+  renderWorkflow(workflow);
+  loadService();
   initScrollToTop()
 }).catch(error => {
   console.error("Data loading error:", error)

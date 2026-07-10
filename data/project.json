@@ -4,8 +4,8 @@
     {
       "title": "Portfolio Website",
       "description": "A modern responsive portfolio built with clean UI and animations.",
-      "tags": ["HTML", "CSS", "JavaScript"],
-      "image": "https://i.postimg.cc/63CxB1D7/ui900.png",
+      "tags": ["JavaScript", "CSS", "HTML"],
+      "image": "https://i.postimg.cc/5yzJwhXB/pic.png",
       "github": "https://github.com/With-ALIF/alif_protfolio",
       "demo": "https://alif.mnr.bd/"
     },
@@ -20,7 +20,7 @@
     {
       "title": "Alif Blog",
       "description": "A dynamic digital space by Alif, delivering curated tech insights, breaking industry news, and deep-dive tutorials for the modern web.",
-      "tags": ["Typescript", "React"],
+      "tags": ["Typescript", "React", "Firebase"],
       "image": "https://i.postimg.cc/6qwX4cy3/blog009.png",
       "github": "https://github.com/With-ALIF/blog_site",
       "demo": "https://alif-blog.vercel.app/"
@@ -28,7 +28,7 @@
     {
       "title": "Tutor Flow",
       "description": "Tutor Flow is an interactive platform that connects tutors with students, providing structured learning paths and session management.",
-      "tags": ["React", "Typescript"],
+      "tags": ["React", "Typescript", "Supabase"],
       "image": "https://github.com/alif982/picture/blob/main/New%20folder/tutorflow.webp?raw=true",
       "github": "https://github.com/With-ALIF/tutorflow",
       "demo": "https://tuition.mnr.bd/"
@@ -36,7 +36,7 @@
      {
       "title": "Web Poll",
       "description": "Web Poll is a web-based polling application that allows users to create and participate in online polls.",
-      "tags": ["Typescript", "React", "Firebase"],
+      "tags": ["Typescript", "React", "Supabase"],
       "image": "https://i.postimg.cc/bvDdtxq3/polldashboard.png",
       "github": "https://github.com/With-ALIF/Web_Poll",
       "demo": "https://poll.mnr.bd/"

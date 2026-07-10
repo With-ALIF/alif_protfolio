@@ -9,6 +9,11 @@
   "thumbnail": "https://i.postimg.cc/cLjmCdmJ/sot0000.png",
   "demo": "https://paymet-sot.vercel.app/",
   "github": "https://github.com/With-ALIF/sot_ledger",
+  "database": {
+    "name": "Firebase Firestore",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    "description": "A Firebase Firestore database that securely stores and manages student payment transaction ledgers, course metadata, and settings. It implements real-time document listeners to sync dashboard statistics instantaneously."
+  },
 
 
   "technologies": [

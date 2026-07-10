@@ -10,6 +10,11 @@
   "thumbnail": "https://i.postimg.cc/pL1W46B8/tutor.png",
   "demo": "https://tuition.mnr.bd/",
   "github": "https://github.com/With-ALIF/tutorflow",
+  "database": {
+    "name": "Supabase",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+    "description": "A Supabase database powering the tuition hub. It manages student profiles, daily attendance logs, monthly fee status, course list, enabling real-time status updates across sessions."
+  },
 
 
   "technologies": [
@@ -22,8 +27,8 @@
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
     },
     {
-      "name": "Firebase Firestore",
-      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+      "name": "Supabase",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg"
     },
     {
       "name": "Vite",

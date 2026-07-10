@@ -1,4 +1,7 @@
 import { renderProjectTags } from '../tags/tags.js';
+import externalLinkIcon from "../icons/external-link-icon.js";
+import githubIcon from "../icons/github-icon.js";
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -122,12 +125,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     <p class="pd-hero-desc">${project.description}</p>
 
     <div class="pd-hero-actions">
-        <a href="${project.demo}" target="_blank" class="btn btn-success">
-            <i class="fas fa-eye"></i> Live Demo
+         <a href="${project.demo}" target="_blank" class="btn btn-success">
+            ${externalLinkIcon}
+            <span>Live Demo</span>
         </a>
 
         <a href="${project.github}" target="_blank" class="btn btn-danger">
-            <i class="fab fa-github"></i> Source Code
+            ${githubIcon}
+            <span>Github Code</span>
         </a>
     </div>
 
@@ -167,6 +172,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
             </div>
+
+            ${project.database ? `
+                <div class="pd-detail-section">
+                <h3><i class="fas fa-database"></i> Database Infrastructure</h3>
+
+    
+                <div class="pd-database-card">    
+                <div class="pd-database-header">
+                <span class="pd-database-name">
+                
+                <img src="${project.database.icon}" alt="${project.database.name}"
+                    class="pd-db-icon" loading="lazy">
+                        ${project.database.name}
+                    </span>
+                    </div>
+                    <p class="pd-database-desc">
+                    ${project.database.description}    
+                </p>
+                </div>
+            </div>
+            ` : ''}
+            
 
             ${project.gallery && project.gallery.length ? `
             <div class="pd-detail-section">

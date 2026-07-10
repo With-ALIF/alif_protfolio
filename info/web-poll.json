@@ -8,6 +8,11 @@
   "thumbnail": "https://i.postimg.cc/bvDdtxq3/polldashboard.png",
   "demo": "https://poll.mnr.bd/",
   "github": "https://github.com/With-ALIF/Web_Poll",
+  "database": {
+    "name": "Supabase",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+    "description": "A Supabase database that stores real-time poll data. It manages tables for polls, user responses, options, and admin roles, optimizing queries to sustain high-density viral voting events."
+  },
 
 
   "technologies": [
@@ -20,12 +25,8 @@
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
     },
     {
-      "name": "Firebase Firestore",
-      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
-    },
-    {
-      "name": "Google GenAI SDK (Gemini Pro)",
-      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+      "name": "Supabase",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg"
     },
     {
       "name": "Lucide React",

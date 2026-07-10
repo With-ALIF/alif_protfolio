@@ -1,3 +1,4 @@
+const css = `
 #education-section {
   padding: 0;
   position: relative;
@@ -660,4 +661,12 @@
     transform: translateX(0);
     opacity: 1;
   }
+}
+`;
+
+if (!document.getElementById("education-style")) {
+  const style = document.createElement("style");
+  style.id = "education-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

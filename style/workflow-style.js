@@ -1,3 +1,4 @@
+const css = `
 #workflow-section {
   padding: 1.5rem 0;
 }
@@ -163,4 +164,12 @@
     font-size: 0.7rem;
     padding: 0.25rem 0.7rem;
   }
+}
+`;
+
+if (!document.getElementById("workflow-style")) {
+  const style = document.createElement("style");
+  style.id = "workflow-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }

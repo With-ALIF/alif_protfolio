@@ -1,3 +1,5 @@
+import "../../style/education-style.js";
+
 export function renderEducationSection(educationData) {
   const education = document.getElementById("education");
   if (!education || !educationData || !educationData.length) {

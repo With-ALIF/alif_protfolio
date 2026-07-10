@@ -8,16 +8,20 @@
 
   "fullDescription": 
   "This portfolio platform is a production-grade digital showcase built for scalability, maintainability, and high-performance user experiences. Developed with Vanilla JavaScript (ES6+) and a modular frontend architecture, it utilizes schema-driven JSON rendering to dynamically generate project pages and technical case studies without requiring structural HTML changes. Its decoupled, data-driven system separates content management from the presentation layer, improving flexibility and development efficiency. Leveraging CSS3 Flexbox and strict responsive design principles, the platform features optimized asset delivery, lazy-loaded media, lightweight runtime execution, and layouts fully aligned with modern accessibility standards. The result is a polished, extensible, and performance-focused portfolio experience designed for professional presentation and seamless long-term content integration.",
-  "thumbnail": "https://i.postimg.cc/63CxB1D7/ui900.png",
+  "thumbnail": "https://i.postimg.cc/5yzJwhXB/pic.png",
 
   "gallery": [
     {
-      "image": "https://i.postimg.cc/63CxB1D7/ui900.png",
+      "image": "https://i.postimg.cc/5yzJwhXB/pic.png",
       "title": "Homepage Overview"
     },
     {
       "image": "https://i.postimg.cc/htKj6VQd/uuuu.png",
       "title": "Project Details Interface"
+    },
+    {
+      "image": "https://raw.githubusercontent.com/alif982/picture/refs/heads/main/alifcover.jpg",
+      "title": "About Me"
     }
   ],
 

@@ -11,6 +11,7 @@
   "demo": "https://alif-blog.vercel.app/",
   "github": "https://github.com/With-ALIF/blog_site",
 
+
   "technologies": [
     {
       "name": "Next.js 15",
@@ -31,12 +32,14 @@
     {
       "name": "Tailwind CSS",
       "icon": "https://github.com/With-ALIF/logo_zone/blob/main/images/tailwind.png?raw=true"
-    },
-    {
-      "name": "Vite",
-      "icon": "https://img.icons8.com/fluent/1200/vite.jpg"
     }
   ],
+
+   "database": {
+    "name": "Firebase Firestore",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    "description": "A Firebase Firestore database powering the blogging ecosystem. It manages collections for blog posts, user comments, tag relations, and admin configurations, optimizing reads and writes for seamless bilingual rendering."
+  },
 
  "tags": [
     "Full-Stack Development",

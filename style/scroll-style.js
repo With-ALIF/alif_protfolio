@@ -1,3 +1,4 @@
+const css = `
 .scroll-to-top-btn {
   position: fixed;
   bottom: 30px;
@@ -67,4 +68,12 @@ body:not(.dark-theme) .scroll-to-top-btn:hover {
     width: 42px;
     height: 42px;
   }
+}
+`;
+
+if (!document.getElementById("scroll-style")) {
+  const style = document.createElement("style");
+  style.id = "scroll-style";
+  style.textContent = css;
+  document.head.appendChild(style);
 }
