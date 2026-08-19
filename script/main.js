@@ -1,5 +1,5 @@
 import "./body.js"
-import { loadJSON } from "./utils/loadJSON.js"
+import { loadAllData } from "./utils/loadData.js"
 import { renderMeta } from "./sections/meta.js"
 import { renderHeader } from "./sections/header.js"
 import { renderHero } from "./sections/hero.js"
@@ -25,54 +25,26 @@ const loadLucideScript = () => new Promise(resolve => {
 })
 
 Promise.all([
-  loadJSON("data/meta.json"),
-  loadJSON("data/logo.json"),
-  loadJSON("data/navigator.json"),
-  loadJSON("data/hero.json"),
-  loadJSON("data/about.json"),
-  loadJSON("data/stats.json"),
-  loadJSON("data/education.json"),
-  loadJSON("data/experience.json"),
-  loadJSON("data/project.json"),
-  loadJSON("data/skill.json"),
-  loadJSON("data/tools.json"),
-  loadJSON("data/review.json"),
-  loadJSON("data/contact.json"),
-  loadJSON("data/footer.json"),
-  loadJSON("data/workflow.json"),
+  loadAllData(),
   loadLucideScript()
 ]).then(([
-  meta,
-  logo,
-  nav,
-  hero,
-  about,
-  stats,
-  education,
-  experience,
-  projects,
-  skills,
-  tools,
-  reviews,
-  contact,
-  footer,
-  workflow,
+  data,
 ]) => {
-  renderMeta(meta)
-  renderHeader(logo, nav)
-  renderHero(hero)
-  renderAbout(about)
-  renderStats(stats)
-  renderEducationSection(education)
-  renderTools(tools)
-  renderExperience(experience)
-  renderProjects(projects)
-  renderSkills(skills)
-  renderReview(reviews)
-  renderContact(contact)
-  renderFooter(logo, footer)
-  renderWorkflow(workflow);
-  loadService();
+  renderMeta(data.meta)
+  renderHeader(data.logo, data.navigator)
+  renderHero(data.hero)
+  renderAbout(data.about)
+  renderStats(data.stats)
+  renderEducationSection(data.education)
+  renderTools(data.tools)
+  renderExperience(data.experience)
+  renderProjects(data.projects)
+  renderSkills(data.skills)
+  renderReview(data.reviews)
+  renderContact(data.contact)
+  renderFooter(data.logo, data.footer)
+  renderWorkflow(data.workflow);
+  loadService(data.services);
   initScrollToTop()
 }).catch(error => {
   console.error("Data loading error:", error)

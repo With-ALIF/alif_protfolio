@@ -31,7 +31,7 @@ export function renderProjects(projectsData) {
                   <p class="project-description">${p.description}</p>
                   <div class="project-tags" data-tags="${p.tags.join(',')}"></div>
                   <div class="project-actions">
-                    <a href="project/project.html?id=${p.id || p.title.toLowerCase().replace(/\s+/g, '-')}" class="btn-project">${detailsIcon}Details</a>
+                    <a href="project/project.html?id=${p.slug || p.title.toLowerCase().replace(/\s+/g, '-')}" class="btn-project">${detailsIcon}Details</a>
                     <a href="${p.github}" class="btn-project" target="_blank">${githubIcon}GitHub</a>
                     <a href="${p.demo}" class="btn-project primary" target="_blank">${externalLinkIcon}Live Demo</a>
                   </div>

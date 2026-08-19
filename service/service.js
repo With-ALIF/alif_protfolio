@@ -1,11 +1,7 @@
-async function loadService() {
-  try {
-    const res = await fetch("./service/service.json");
-    if (!res.ok) throw new Error("service.json not found");
-    const data = await res.json();
-    renderService(data);
-  } catch (err) {
-    console.error("Service data load failed:", err);
+async function loadService(externalData) {
+  if (externalData) {
+    renderService(externalData);
+    return;
   }
 }
 

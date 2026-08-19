@@ -98,86 +98,36 @@ async function sendEmailJS(formData) {
   return true;
 }
 
-function escapeHTML(text) {
-  if (!text) return '';
-
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-function formatTelegramMessage(formData) {
-  const name = escapeHTML(formData.name);
-  const email = escapeHTML(formData.email);
-  const subject = escapeHTML(formData.subject);
-  const message = escapeHTML(formData.message);
-
-  const currentTime = new Date().toLocaleString('en-BD', {
-    timeZone: 'Asia/Dhaka',
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
-
-  return `
-<b>🚀 NEW PORTFOLIO MESSAGE</b>
-
-━━━━━━━━━━━━━━━━━━
-
-<b>👤 Sender</b>: <code>${name}</code>\n
-
-<b>📧 Email: </b> <code>${email}</code> \n
-
-<b>📝 Subject:</b> <code>${subject}</code>\n\n
-
-<b>💬 Message</b>
-${message}  \n\n
-
-<b>🕒 Received:</b>
-<code>${currentTime}</code>
-
-━━━━━━━━━━━━━━━━━━
-`;
-}
-
 async function sendTelegramNotification(formData) {
   try {
-    const telegramMessage = formatTelegramMessage(formData);
+    const response = await fetch('/api/telegram', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
 
-    const response = await fetch(
-      `https://api.telegram.org/bot${CONFIG.telegram.BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-          chat_id: CONFIG.telegram.CHAT_ID,
-          text: telegramMessage,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true
-        })
+    const contentType = response.headers.get('content-type') || '';
+    if (!response.ok) {
+      let errorMessage = `HTTP ${response.status} (${response.statusText})`;
+      if (contentType.includes('application/json')) {
+        const errorData = await response.json();
+        errorMessage = errorData.error || errorMessage;
       }
-    );
+      throw new Error(errorMessage);
+    }
 
-    const data = await response.json();
-
-    console.log(data);
-
-    if (!response.ok || !data.ok) {
-      throw new Error(data.description || 'Telegram failed');
+    if (contentType.includes('application/json')) {
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || 'Telegram failed');
+      }
     }
 
     return true;
   } catch (error) {
-    console.error('Telegram Error:', error);
+    console.error('Telegram Notification Error:', error);
     return false;
   }
 }

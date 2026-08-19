@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Portfolio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <link rel="stylesheet" href="/admin/panel.css">
+</head>
+<body>
+  <div class="admin-panel-layout">
+    <aside class="admin-panel-sidebar">
+      <div class="admin-panel-brand">ALIF<span>Admin</span></div>
+      <nav class="admin-panel-nav" id="admin-panel-nav"></nav>
+      <div class="admin-panel-footer-actions">
+        <a href="/index.html" class="admin-panel-btn-outline" target="_blank">View Site</a>
+        <button id="admin-logout-btn" class="admin-panel-btn-danger">Logout</button>
+      </div>
+    </aside>
+    <main class="admin-panel-main">
+      <header class="admin-panel-topbar">
+        <button id="admin-sidebar-toggle" class="admin-sidebar-toggle">&#9776;</button>
+        <h2 id="admin-section-title">Dashboard</h2>
+        <div class="admin-panel-topbar-right">
+          <span id="admin-email"></span>
+        </div>
+      </header>
+      <div class="admin-panel-content" id="admin-panel-content">
+        <div class="admin-panel-loading">Loading content...</div>
+      </div>
+    </main>
+  </div>
+  <div id="admin-toast" class="admin-toast"></div>
+  <script type="module" src="/admin/panel.js"></script>
+</body>
+</html>

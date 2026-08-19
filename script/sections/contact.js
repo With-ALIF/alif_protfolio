@@ -33,30 +33,20 @@ export function renderContact(contactData) {
     </div>
 
     <div class="contact-socials">
-      ${socials?.facebook
-  ? `<a href="${socials.facebook}" target="_blank" aria-label="Facebook">${facebookSVG}</a>`
-  : ""}
-
-${socials?.github
-  ? `<a href="${socials.github}" target="_blank" aria-label="GitHub">${githubSVG}</a>`
-  : ""}
-
-${socials?.instagram
-  ? `<a href="${socials.instagram}" target="_blank" aria-label="Instagram">${instagramSVG}</a>`
-  : ""}
-
-${socials?.whatsapp
-  ? `<a href="${socials.whatsapp}" target="_blank" aria-label="WhatsApp">${whatsappSVG}</a>`
-  : ""}
-
-${socials?.linkedin
-  ? `<a href="${socials.linkedin}" target="_blank" aria-label="LinkedIn">${linkedinSVG}</a>`
-  : ""}
-
-${socials?.telegram
-  ? `<a href="${socials.telegram}" target="_blank" aria-label="Telegram">${telegramSVG}</a>`
-  : ""}
-
+      ${Object.entries(socials || {}).map(([name, val]) => {
+        const url = typeof val === "object" ? val.url : val;
+        const icon = typeof val === "object" ? val.icon : "";
+        if (!url) return "";
+        const label = name.charAt(0).toUpperCase() + name.slice(1);
+        if (icon) {
+          return `<a href="${url}" target="_blank" aria-label="${label}" title="${label}"><img src="${icon}" alt="${label}" style="width:20px;height:20px;object-fit:contain;"></a>`;
+        }
+        const fallback = knownIcons[name.toLowerCase()];
+        if (fallback) {
+          return `<a href="${url}" target="_blank" aria-label="${label}" title="${label}">${fallback}</a>`;
+        }
+        return `<a href="${url}" target="_blank" aria-label="${label}" title="${label}" style="font-size:1.1rem;font-weight:600;">${label.charAt(0)}</a>`;
+      }).join("\n")}
     </div>
 
     <form id="contact-form" class="contact-form">
@@ -214,4 +204,13 @@ const telegramSVG = `
   <path d="M22 2L15 22l-4-9-9-4z"/>
 </svg>
 `;
+
+const knownIcons = {
+  facebook: facebookSVG,
+  github: githubSVG,
+  instagram: instagramSVG,
+  whatsapp: whatsappSVG,
+  linkedin: linkedinSVG,
+  telegram: telegramSVG,
+};
 
