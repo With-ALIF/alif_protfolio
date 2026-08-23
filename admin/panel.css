@@ -258,6 +258,48 @@ body {
   gap: 1.25rem;
 }
 
+.admin-tags-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: hsl(20, 14%, 10%);
+  border: 1px solid hsl(20, 10%, 18%);
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.admin-tag-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  background: hsl(20, 12%, 14%);
+  border: 1px solid hsl(20, 10%, 22%);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+
+.admin-tag-option:hover {
+  border-color: hsl(35, 90%, 55%);
+}
+
+.admin-tag-option:has(input:checked) {
+  background: hsl(35, 90%, 55%);
+  border-color: hsl(35, 90%, 55%);
+  color: hsl(35, 90%, 15%);
+}
+
+.admin-tag-option input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: hsl(35, 90%, 55%);
+}
+
 /* =========================================
    ITEMS LIST & CARDS
    ========================================= */
@@ -475,4 +517,100 @@ body {
     grid-template-columns: 1fr;
     gap: 0;
   }
+}
+
+/* Confirm Modal */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.admin-modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-modal-card {
+  background: hsl(20, 14%, 10%);
+  border: 1px solid hsl(20, 10%, 20%);
+  border-radius: 14px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+
+.admin-modal-overlay.show .admin-modal-card {
+  transform: scale(1);
+}
+
+.admin-modal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.admin-modal-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-modal-card p {
+  font-size: 0.85rem;
+  color: hsl(40, 10%, 55%);
+  margin-bottom: 1.5rem;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.admin-modal-actions button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.admin-modal-cancel {
+  background: hsl(20, 14%, 18%);
+  color: hsl(40, 20%, 80%);
+  border: 1px solid hsl(20, 10%, 25%) !important;
+}
+
+.admin-modal-cancel:hover {
+  background: hsl(20, 14%, 22%);
+}
+
+.admin-modal-delete {
+  background: hsl(0, 60%, 45%);
+  color: #fff;
+}
+
+.admin-modal-delete:hover {
+  background: hsl(0, 60%, 55%);
+}
+
+#session-timeout-modal .admin-modal-icon {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }

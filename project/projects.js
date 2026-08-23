@@ -5,23 +5,23 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const container = document.getElementById('projects-container');
+    const container = document.getElementById('alif_projects-container');
     const searchInput = document.getElementById('search-input');
 
     try {
         const { data: pubProjects } = await supabase
-            .from('projects')
+            .from('alif_projects')
             .select('slug')
             .eq('is_published', true);
         const publishedSlugs = new Set((pubProjects || []).map(p => p.slug));
 
         const { data: items, error } = await supabase
-            .from('project_details')
+            .from('alif_project_details')
             .select('id, data');
 
         if (error) throw error;
 
-        const projects = (items || [])
+        const alif_projects = (items || [])
             .filter(row => publishedSlugs.has(row.id))
             .map(row => ({
                 id: row.id,
@@ -30,13 +30,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const render = (query = '') => {
             container.innerHTML = '';
-            const filtered = projects.filter(p =>
+            const filtered = alif_projects.filter(p =>
                 p.title.toLowerCase().includes(query) ||
                 (p.tags || []).some(t => t.toLowerCase().includes(query))
             );
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="loading-spinner">No projects found for "${query}"</div>`;
+                container.innerHTML = `<div class="loading-spinner">No alif_projects found for "${query}"</div>`;
                 return;
             }
 

@@ -1,5 +1,53 @@
 import { supabase } from "../config/supabase.js";
 
+const SESSION_TIMEOUT = 5 * 60 * 1000;
+let logoutTimer = null;
+let activityTimer = null;
+
+function resetSessionTimer() {
+  sessionStorage.setItem("admin_login_time", Date.now());
+}
+
+function checkSessionTimeout() {
+  const loginTime = parseInt(sessionStorage.getItem("admin_login_time") || "0");
+  if (!loginTime) return;
+  const elapsed = Date.now() - loginTime;
+  if (elapsed >= SESSION_TIMEOUT) {
+    showTimeoutModal();
+  }
+}
+
+function showTimeoutModal() {
+  const modal = document.getElementById("session-timeout-modal");
+  if (modal) modal.classList.add("show");
+  clearInterval(logoutTimer);
+}
+
+async function forceLogout() {
+  sessionStorage.removeItem("admin_login_time");
+  await supabase.auth.signOut();
+  window.location.href = "/index.html";
+}
+
+function startSessionTimer() {
+  clearInterval(logoutTimer);
+  logoutTimer = setInterval(checkSessionTimeout, 1000);
+  ["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(evt => {
+    document.addEventListener(evt, resetSessionTimer, { passive: true });
+  });
+}
+
+function setupTimeoutModal() {
+  const modal = document.getElementById("session-timeout-modal");
+  if (!modal) return;
+  document.getElementById("timeout-extend-btn")?.addEventListener("click", () => {
+    resetSessionTimer();
+    modal.classList.remove("show");
+    startSessionTimer();
+  });
+  document.getElementById("timeout-logout-btn")?.addEventListener("click", forceLogout);
+}
+
 const navSections = [
   { id: "hero", label: "Hero", icon: "🏠", type: "jsonb" },
   { id: "about", label: "About", icon: "👤", type: "jsonb" },
@@ -8,15 +56,17 @@ const navSections = [
   { id: "footer", label: "Footer", icon: "📄", type: "jsonb" },
   { id: "navigator", label: "Navigation", icon: "🧭", type: "jsonb" },
   { id: "logo", label: "Logo", icon: "✨", type: "jsonb" },
-  { id: "projects", label: "Projects", icon: "📁", type: "table" },
-  { id: "skills", label: "Skills", icon: "💻", type: "table" },
-  { id: "education", label: "Education", icon: "🎓", type: "table" },
-  { id: "experience", label: "Experience", icon: "💼", type: "table" },
-  { id: "services", label: "Services", icon: "🔧", type: "table" },
-  { id: "reviews", label: "Reviews", icon: "⭐", type: "table" },
-  { id: "workflow", label: "Workflow", icon: "⚡", type: "table" },
-  { id: "tools", label: "Tools", icon: "🛠", type: "table" },
-  { id: "project_details", label: "Project Details", icon: "📝", type: "details" },
+  { id: "alif_projects", label: "Projects", icon: "📁", type: "table" },
+  { id: "alif_skills", label: "Skills", icon: "💻", type: "table" },
+  { id: "alif_education", label: "Education", icon: "🎓", type: "table" },
+  { id: "alif_experience", label: "Experience", icon: "💼", type: "table" },
+  { id: "alif_services", label: "Services", icon: "🔧", type: "table" },
+  { id: "alif_reviews", label: "Reviews", icon: "⭐", type: "table" },
+  { id: "alif_workflow", label: "Workflow", icon: "⚡", type: "table" },
+  { id: "alif_tools", label: "Tools", icon: "🛠", type: "table" },
+  { id: "alif_certificates", label: "Certificates", icon: "🏆", type: "table" },
+  { id: "alif_tag", label: "Tags", icon: "🏷", type: "table" },
+  { id: "alif_project_details", label: "Project Details", icon: "📝", type: "details" },
 ];
 
 const ALLOWED_EMAIL = "alifbrur16@gmail.com";
@@ -28,7 +78,7 @@ async function checkAuth() {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session || session.user.email !== ALLOWED_EMAIL) {
     await supabase.auth.signOut();
-    window.location.href = "../admin.html";
+  window.location.href = "/index.html";
     return null;
   }
   document.getElementById("admin-email").textContent = session.user.email;
@@ -47,6 +97,34 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function confirmModal(title, message) {
+  return new Promise(resolve => {
+    const modal = document.getElementById("admin-confirm-modal");
+    document.getElementById("confirm-title").textContent = title;
+    document.getElementById("confirm-message").textContent = message;
+    modal.classList.add("show");
+
+    let resolved = false;
+    const cleanup = (result) => {
+      if (resolved) return;
+      resolved = true;
+      modal.classList.remove("show");
+      document.getElementById("confirm-ok").removeEventListener("click", onOk);
+      document.getElementById("confirm-cancel").removeEventListener("click", onCancel);
+      modal.removeEventListener("click", onOverlay);
+      resolve(result);
+    };
+
+    const onOk = (e) => { e.stopPropagation(); cleanup(true); };
+    const onCancel = (e) => { e.stopPropagation(); cleanup(false); };
+    const onOverlay = (e) => { if (e.target === modal) cleanup(false); };
+
+    document.getElementById("confirm-ok").addEventListener("click", onOk);
+    document.getElementById("confirm-cancel").addEventListener("click", onCancel);
+    modal.addEventListener("click", onOverlay);
+  });
+}
+
 function buildNav() {
   const nav = document.getElementById("admin-panel-nav");
   nav.innerHTML = navSections.map(s =>
@@ -58,6 +136,7 @@ function buildNav() {
     nav.querySelectorAll(".admin-panel-nav-item").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     loadSection(btn.dataset.section, btn.dataset.type);
+    document.querySelector(".admin-panel-sidebar").classList.remove("open");
   });
 }
 
@@ -79,13 +158,13 @@ async function loadSection(id, type) {
 }
 
 // ============================================
-// JSONB SECTIONS (site_content table)
+// JSONB SECTIONS (alif_site_content table)
 // ============================================
 async function loadJsonbSection(section) {
   const content = document.getElementById("admin-panel-content");
   let data = null;
   try {
-    const res = await supabase.from("site_content").select("data").eq("section", section).single();
+    const res = await supabase.from("alif_site_content").select("data").eq("section", section).single();
     if (!res.error && res.data) data = res.data.data;
   } catch {}
 
@@ -100,6 +179,7 @@ async function loadJsonbSection(section) {
     case "footer": html = footerEditor(data); break;
     case "navigator": html = navEditor(data); break;
     case "logo": html = logoEditor(data); break;
+    case "seo": html = seoEditor(data); break;
   }
 
   content.innerHTML = html + saveBar();
@@ -224,6 +304,7 @@ function rerenderJsonb(section, data) {
     case "footer": html = footerEditor(data); break;
     case "navigator": html = navEditor(data); break;
     case "logo": html = logoEditor(data); break;
+    case "seo": html = seoEditor(data); break;
   }
   content.innerHTML = html + saveBar();
   bindInputs(content, data);
@@ -387,6 +468,20 @@ function logoEditor(d) {
   </div>`;
 }
 
+function seoEditor(d) {
+  return `<div class="admin-section-editor"><h3>SEO Settings</h3>
+    <p style="font-size:.85rem;color:hsl(40,10%,55%);margin-bottom:1rem">Configure SEO metadata for the homepage. Changes reflect in meta tags, OG tags, and structured data.</p>
+    <div class="admin-form-row"><label>Title</label><input type="text" data-path="title" value="${esc(d.title || "")}" placeholder="Alif — Abdullah Khalid Alif | Software Engineer"></div>
+    <div class="admin-form-row"><label>Description</label><textarea data-path="description" placeholder="Abdullah Khalid Alif, also known as Alif, is a Software Engineer...">${esc(d.description || "")}</textarea></div>
+    <div class="admin-form-row"><label>Keywords</label><input type="text" data-path="keywords" value="${esc(d.keywords || "")}" placeholder="Alif, Abdullah Khalid Alif, Software Engineer, Portfolio"></div>
+    <div class="admin-form-row"><label>OG Title</label><input type="text" data-path="og_title" value="${esc(d.og_title || "")}" placeholder="Leave empty to use Title"></div>
+    <div class="admin-form-row"><label>OG Description</label><textarea data-path="og_description" placeholder="Leave empty to use Description">${esc(d.og_description || "")}</textarea></div>
+    <div class="admin-form-row"><label>OG Image URL</label><input type="text" data-path="og_image" value="${esc(d.og_image || "")}" placeholder="https://alif.mnr.bd/og-default.png"></div>
+    <div class="admin-form-row"><label>Canonical URL</label><input type="text" data-path="canonical_url" value="${esc(d.canonical_url || "")}" placeholder="https://alif.mnr.bd/"></div>
+    <div class="admin-form-row"><label>No Index</label><select data-path="no_index"><option value="false" ${!d.no_index ? "selected" : ""}>No (Indexable)</option><option value="true" ${d.no_index ? "selected" : ""}>Yes (No Index)</option></select></div>
+  </div>`;
+}
+
 function saveBar() {
   return `<div class="admin-save-bar">
     <button class="admin-reset-btn" id="admin-reset-btn">Reset</button>
@@ -415,7 +510,7 @@ function setNested(obj, path, val) {
 async function saveJsonb(section, data) {
   const btn = document.getElementById("admin-save-btn");
   btn.disabled = true; btn.textContent = "Saving...";
-  const { error } = await supabase.from("site_content").upsert(
+  const { error } = await supabase.from("alif_site_content").upsert(
     { section, data, updated_at: new Date().toISOString() },
     { onConflict: "section" }
   );
@@ -425,11 +520,11 @@ async function saveJsonb(section, data) {
 }
 
 // ============================================
-// PROJECT DETAILS (project_details table)
+// PROJECT DETAILS (alif_project_details table)
 // ============================================
 async function loadProjectDetailsSection() {
   const content = document.getElementById("admin-panel-content");
-  const { data: items, error } = await supabase.from("project_details").select("*");
+  const { data: items, error } = await supabase.from("alif_project_details").select("*");
   if (error) { content.innerHTML = `<div class="admin-panel-loading">Error: ${error.message}</div>`; return; }
 
   content.innerHTML = `
@@ -440,13 +535,13 @@ async function loadProjectDetailsSection() {
         ${(items || []).map(p => `
           <div class="admin-item-card">
             <div class="admin-item-card-header">
-              <h4>${esc(p.data?.title || p.id)}</h4>
+              <h4>${esc(p.title || p.id)}</h4>
               <div>
                 <button class="admin-item-remove-btn" data-edit="${p.id}" title="Edit">✏️</button>
                 <button class="admin-item-remove-btn" data-delete="${p.id}" title="Delete">&times;</button>
               </div>
             </div>
-            <p style="font-size:.82rem;color:hsl(40,10%,55%)">${esc(p.data?.category || '')} — ${esc(p.data?.status || '')}</p>
+            <p style="font-size:.82rem;color:hsl(40,10%,55%)">${esc(p.status || '')}</p>
           </div>
         `).join("")}
       </div>
@@ -455,8 +550,8 @@ async function loadProjectDetailsSection() {
 
   content.querySelectorAll("[data-delete]").forEach(btn => {
     btn.addEventListener("click", async () => {
-      if (!confirm("Delete this project detail?")) return;
-      await supabase.from("project_details").delete().eq("id", btn.dataset.delete);
+      if (!await confirmModal("Delete Project Detail?", "This will permanently delete this project detail page.")) return;
+      await supabase.from("alif_project_details").delete().eq("id", btn.dataset.delete);
       showToast("Deleted!");
       loadProjectDetailsSection();
     });
@@ -472,24 +567,38 @@ async function loadProjectDetailsSection() {
 
 function editProjectDetail(item) {
   const content = document.getElementById("admin-panel-content");
-  const d = item.data || {};
   const slug = item.id;
+
+  const src = item.data || item;
+  const d = {
+    title: src.title || '',
+    description: src.description || '',
+    fullDescription: src.fullDescription || src.full_description || '',
+    github: src.github || src.github_url || '',
+    demo: src.demo || src.demo_url || '',
+    show_github: src.show_github !== false,
+    show_demo: src.show_demo !== false,
+    thumbnail: src.thumbnail || src.thumbnail_url || '',
+    status: src.status || 'Planned',
+    featured: src.featured || false,
+    show_database: src.show_database !== false,
+    tags: src.tags || [],
+    technologies: src.technologies || [],
+    features: src.features || [],
+    gallery: src.gallery || [],
+    timeline: src.timeline || [],
+    challenges: src.challenges || [],
+    solutions: src.solutions || [],
+    statistics: src.statistics || {},
+    database: src.database || src.database_info || {},
+  };
 
   const arrFields = (key, arr) => (arr || []).map((v, i) =>
     `<div class="admin-form-row"><label>${key} ${i + 1}</label><input type="text" data-arr="${key}" data-idx="${i}" value="${esc(typeof v === 'string' ? v : v.title || v.name || v.label || JSON.stringify(v))}"></div>`
   ).join("");
 
-  const techFields = (d.technologies || []).map((t, i) => `
-    <div class="admin-item-card">
-      <div class="admin-item-card-header"><h4>${esc(t.name) || "Tech " + (i+1)}</h4>
-        <button class="admin-item-remove-btn" data-remove-tech="${i}">&times;</button>
-      </div>
-      <div class="admin-form-row-inline">
-        <div class="admin-form-row"><label>Name</label><input type="text" data-tech-idx="${i}" data-field="name" value="${esc(t.name)}"></div>
-        <div class="admin-form-row"><label>Icon URL</label><input type="text" data-tech-idx="${i}" data-field="icon" value="${esc(t.icon)}"></div>
-      </div>
-    </div>
-  `).join("");
+  const allTags = window._adminTags || [];
+  const selectedTechs = (d.technologies || []).map(t => typeof t === 'string' ? t : t.name);
 
   const galleryFields = (d.gallery || []).map((g, i) => {
     const img = typeof g === 'string' ? g : g.image || '';
@@ -526,7 +635,19 @@ function editProjectDetail(item) {
       <div class="admin-form-row"><label>Status</label><input type="text" data-dfield="status" value="${esc(d.status)}"></div>
       <div class="admin-form-row"><label>Thumbnail URL</label><input type="text" data-dfield="thumbnail" value="${esc(d.thumbnail)}"></div>
       <div class="admin-form-row"><label>GitHub URL</label><input type="text" data-dfield="github" value="${esc(d.github)}"></div>
+      <div class="admin-form-row"><label>Show GitHub</label>
+        <select data-dfield="show_github">
+          <option value="true" ${d.show_github !== false ? "selected" : ""}>Yes</option>
+          <option value="false" ${d.show_github === false ? "selected" : ""}>No</option>
+        </select>
+      </div>
       <div class="admin-form-row"><label>Demo URL</label><input type="text" data-dfield="demo" value="${esc(d.demo)}"></div>
+      <div class="admin-form-row"><label>Show Demo</label>
+        <select data-dfield="show_demo">
+          <option value="true" ${d.show_demo !== false ? "selected" : ""}>Yes</option>
+          <option value="false" ${d.show_demo === false ? "selected" : ""}>No</option>
+        </select>
+      </div>
       <div class="admin-form-row"><label>Short Description</label><textarea data-dfield="description">${esc(d.description)}</textarea></div>
       <div class="admin-form-row"><label>Full Description</label><textarea data-dfield="fullDescription" style="min-height:150px">${esc(d.fullDescription)}</textarea></div>
     </div>
@@ -538,8 +659,13 @@ function editProjectDetail(item) {
 
     <div class="admin-section-editor">
       <h3>Technologies</h3>
-      <div class="admin-items-list">${techFields}</div>
-      <button class="admin-add-item-btn" id="admin-add-tech">+ Add Technology</button>
+      <div class="admin-tags-picker" id="admin-tech-picker">
+        ${allTags.map(t => `<label class="admin-tag-option">
+          <input type="checkbox" value="${esc(t.name)}" ${selectedTechs.includes(t.name) ? 'checked' : ''}>
+          <img src="${esc(t.icon)}" style="width:16px;height:16px;" onerror="this.style.display='none'">
+          <span>${esc(t.name)}</span>
+        </label>`).join("")}
+      </div>
     </div>
 
     <div class="admin-section-editor">
@@ -561,12 +687,6 @@ function editProjectDetail(item) {
     </div>
 
     <div class="admin-section-editor">
-      <h3>Results</h3>
-      ${arrFields("result", d.results)}
-      <button class="admin-add-item-btn" id="admin-add-result">+ Add Result</button>
-    </div>
-
-    <div class="admin-section-editor">
       <h3>Gallery</h3>
       <div class="admin-items-list">${galleryFields}</div>
       <button class="admin-add-item-btn" id="admin-add-gallery">+ Add Gallery Image</button>
@@ -583,6 +703,12 @@ function editProjectDetail(item) {
       <div class="admin-form-row"><label>Name</label><input type="text" data-dbfield="name" value="${esc(d.database?.name)}"></div>
       <div class="admin-form-row"><label>Icon URL</label><input type="text" data-dbfield="icon" value="${esc(d.database?.icon)}"></div>
       <div class="admin-form-row"><label>Description</label><textarea data-dbfield="description">${esc(d.database?.description)}</textarea></div>
+      <div class="admin-form-row"><label>Show Database</label>
+        <select data-dfield="show_database">
+          <option value="true" ${d.show_database !== false ? "selected" : ""}>Yes</option>
+          <option value="false" ${d.show_database === false ? "selected" : ""}>No</option>
+        </select>
+      </div>
     </div>
 
     <div class="admin-save-bar">
@@ -598,7 +724,6 @@ function editProjectDetail(item) {
   if (!data.features) data.features = [];
   if (!data.challenges) data.challenges = [];
   if (!data.solutions) data.solutions = [];
-  if (!data.results) data.results = [];
   if (!data.gallery) data.gallery = [];
   if (!data.timeline) data.timeline = [];
   if (!data.technologies) data.technologies = [];
@@ -624,10 +749,11 @@ function editProjectDetail(item) {
     });
   });
 
-  c.querySelectorAll("[data-tech-idx]").forEach(el => {
-    el.addEventListener("input", () => {
-      const idx = parseInt(el.dataset.techIdx);
-      if (data.technologies[idx]) data.technologies[idx][el.dataset.field] = el.value;
+  c.querySelector("#admin-tech-picker")?.addEventListener("change", () => {
+    const checked = c.querySelectorAll("#admin-tech-picker input[type='checkbox']:checked");
+    data.technologies = Array.from(checked).map(cb => {
+      const tag = allTags.find(t => t.name === cb.value);
+      return { name: cb.value, icon: tag ? tag.icon : '' };
     });
   });
 
@@ -661,14 +787,13 @@ function editProjectDetail(item) {
       });
     });
   };
-  ["feature","challenge","solution","result"].forEach(simpleArrHandler);
+  ["feature","challenge","solution"].forEach(simpleArrHandler);
 
   const addSimple = (key, template) => {
     const idMap = {
       features: "admin-add-feature",
       challenges: "admin-add-challenge",
       solutions: "admin-add-solution",
-      results: "admin-add-result"
     };
     document.getElementById(idMap[key])?.addEventListener("click", () => {
       data[key].push(template);
@@ -678,12 +803,7 @@ function editProjectDetail(item) {
   addSimple("features", "");
   addSimple("challenges", "");
   addSimple("solutions", "");
-  addSimple("results", "");
 
-  document.getElementById("admin-add-tech")?.addEventListener("click", () => {
-    data.technologies.push({ name: "", icon: "" });
-    editProjectDetail({ id: slug, data });
-  });
   document.getElementById("admin-add-gallery")?.addEventListener("click", () => {
     data.gallery.push({ image: "", title: "" });
     editProjectDetail({ id: slug, data });
@@ -693,9 +813,6 @@ function editProjectDetail(item) {
     editProjectDetail({ id: slug, data });
   });
 
-  c.querySelectorAll("[data-remove-tech]").forEach(btn => {
-    btn.addEventListener("click", () => { data.technologies.splice(parseInt(btn.dataset.removeTech), 1); editProjectDetail({ id: slug, data }); });
-  });
   c.querySelectorAll("[data-remove-gallery]").forEach(btn => {
     btn.addEventListener("click", () => { data.gallery.splice(parseInt(btn.dataset.removeGallery), 1); editProjectDetail({ id: slug, data }); });
   });
@@ -703,17 +820,40 @@ function editProjectDetail(item) {
     btn.addEventListener("click", () => { data.timeline.splice(parseInt(btn.dataset.removeTimeline), 1); editProjectDetail({ id: slug, data }); });
   });
 
-  document.getElementById("admin-cancel-btn")?.addEventListener("click", () => loadSection("project_details", "details"));
+  document.getElementById("admin-cancel-btn")?.addEventListener("click", () => loadSection("alif_project_details", "details"));
   document.getElementById("admin-save-btn")?.addEventListener("click", async () => {
     const btn = document.getElementById("admin-save-btn");
     btn.disabled = true; btn.textContent = "Saving...";
-    const { error } = await supabase.from("project_details").upsert(
-      { id: slug, data, updated_at: new Date().toISOString() },
+    const { error } = await supabase.from("alif_project_details").upsert(
+      {
+        id: slug,
+        title: data.title,
+        description: data.description,
+        full_description: data.fullDescription,
+        github_url: data.github,
+        show_github: data.show_github,
+        demo_url: data.demo,
+        show_demo: data.show_demo,
+        thumbnail_url: data.thumbnail,
+        status: data.status,
+        featured: data.featured,
+        show_database: data.show_database,
+        tags: data.tags,
+        technologies: data.technologies,
+        features: data.features,
+        gallery: data.gallery,
+        timeline: data.timeline,
+        challenges: data.challenges,
+        solutions: data.solutions,
+        statistics: data.statistics,
+        database_info: data.database,
+        updated_at: new Date().toISOString(),
+      },
       { onConflict: "id" }
     );
     btn.disabled = false; btn.textContent = "Save Changes";
     if (error) showToast("Error: " + error.message, "error");
-    else { showToast("Saved!"); loadSection("project_details", "details"); }
+    else { showToast("Saved!"); loadSection("alif_project_details", "details"); }
   });
 }
 
@@ -722,7 +862,7 @@ function editProjectDetail(item) {
 // ============================================
 async function loadTableSection(table) {
   const content = document.getElementById("admin-panel-content");
-  const noSort = ["reviews"];
+  const noSort = ["alif_reviews"];
   let query = supabase.from(table).select("*");
   if (!noSort.includes(table)) query = query.order("sort_order", { ascending: true });
   const { data: items, error } = await query;
@@ -730,14 +870,16 @@ async function loadTableSection(table) {
 
   let html = "";
   switch (table) {
-    case "projects": html = projectsTable(items); break;
-    case "skills": html = skillsTable(items); break;
-    case "education": html = educationTable(items); break;
-    case "experience": html = experienceTable(items); break;
-    case "services": html = servicesTable(items); break;
-    case "reviews": html = reviewsTable(items); break;
-    case "workflow": html = workflowTable(items); break;
-    case "tools": html = toolsTable(items); break;
+    case "alif_projects": html = projectsTable(items); break;
+    case "alif_skills": html = skillsTable(items); break;
+    case "alif_education": html = educationTable(items); break;
+    case "alif_experience": html = experienceTable(items); break;
+    case "alif_services": html = servicesTable(items); break;
+    case "alif_reviews": html = reviewsTable(items); break;
+    case "alif_workflow": html = workflowTable(items); break;
+    case "alif_tools": html = toolsTable(items); break;
+    case "alif_certificates": html = certificatesTable(items); break;
+    case "alif_tag": html = tagsTable(items); break;
   }
 
   content.innerHTML = html;
@@ -871,14 +1013,61 @@ function toolsTable(items) {
   </div>`;
 }
 
+function certificatesTable(items) {
+  return `<div class="admin-section-editor"><h3>Certificates</h3>
+    <div class="admin-items-list">${items.map(c => `
+      <div class="admin-item-card">
+        <div class="admin-item-card-header"><h4>${esc(c.title)}</h4>
+          <div>
+            <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;${c.featured ? 'background:hsl(45,80%,50%);color:hsl(45,80%,15%)' : 'background:hsl(40,10%,25%);color:hsl(40,10%,70%)'}">${c.featured ? '★ Featured' : 'Normal'}</span>
+            <button class="admin-item-remove-btn" data-edit="${c.id}">✏️</button>
+            <button class="admin-item-remove-btn" data-delete="${c.id}">&times;</button>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:hsl(40,10%,55%)">${esc(c.issuer)} — ${esc(c.issued_date)}</p>
+      </div>`).join("")}</div>
+    <button class="admin-add-item-btn" id="admin-add-new-btn">+ Add Certificate</button>
+  </div>`;
+}
+
+function tagsTable(items) {
+  return `<div class="admin-section-editor"><h3>Tags / Technology Icons</h3>
+    <div class="admin-items-list">${items.map(t => `
+      <div class="admin-item-card">
+        <div class="admin-item-card-header"><h4>${esc(t.name)}</h4>
+          <div>
+            <button class="admin-item-remove-btn" data-edit="${t.id}">✏️</button>
+            <button class="admin-item-remove-btn" data-delete="${t.id}">&times;</button>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:hsl(40,10%,55%)"><img src="${esc(t.icon)}" style="width:20px;height:20px;vertical-align:middle;margin-right:6px;" onerror="this.style.display='none'">${esc(t.icon)}</p>
+      </div>`).join("")}</div>
+    <button class="admin-add-item-btn" id="admin-add-new-btn">+ Add Tag</button>
+  </div>`;
+}
+
 // ============================================
 // CRUD OPERATIONS
 // ============================================
 async function deleteRow(table, id) {
-  if (!confirm("Delete this item?")) return;
+  if (!await confirmModal("Delete Item?", "This action cannot be undone.")) return;
+
+  let projectSlug = null;
+  if (table === "alif_projects") {
+    const { data: proj } = await supabase.from("alif_projects").select("slug").eq("id", id).single();
+    if (proj?.slug) projectSlug = proj.slug;
+  }
+
   const { error } = await supabase.from(table).delete().eq("id", id);
-  if (error) showToast("Delete failed: " + error.message, "error");
-  else { showToast("Deleted!"); loadSection(currentSection, "table"); }
+  if (error) {
+    showToast("Delete failed: " + error.message, "error");
+  } else {
+    if (projectSlug) {
+      await supabase.from("alif_project_details").delete().eq("id", projectSlug);
+    }
+    showToast("Deleted!");
+    loadSection(currentSection, "table");
+  }
 }
 
 function editRow(table, id, items) {
@@ -889,14 +1078,16 @@ function editRow(table, id, items) {
 
 function addRow(table) {
   const templates = {
-    projects: { title: "", slug: "", description: "", image: "", github: "", demo: "", featured: false, is_published: true, sort_order: 0 },
-    skills: { name: "", icon: "", level: 0, sort_order: 0 },
-    education: { degree: "", institute: "", district: "", class: "", year: "", description: "", logo: "", sort_order: 0 },
-    experience: { role: "", company: "", logo: "", duration: "", description: "", sort_order: 0 },
-    services: { title: "", icon: "code", description: "", sort_order: 0 },
-    reviews: { name: "", image: "", comment: "", is_published: true },
-    workflow: { title: "", role: "", year: "", status: "", logo: "", sort_order: 0 },
-    tools: { name: "", icon: "", sort_order: 0 },
+    alif_projects: { title: "", slug: "", description: "", image: "", github: "", demo: "", tags: [], featured: false, show_github: true, is_published: true, sort_order: 0 },
+    alif_skills: { name: "", icon: "", level: 0, sort_order: 0 },
+    alif_education: { degree: "", institute: "", district: "", class: "", year: "", description: "", logo: "", sort_order: 0 },
+    alif_experience: { role: "", company: "", logo: "", duration: "", description: "", sort_order: 0 },
+    alif_services: { title: "", icon: "code", description: "", sort_order: 0 },
+    alif_reviews: { name: "", image: "", comment: "", is_published: true },
+    alif_workflow: { title: "", role: "", year: "", status: "", logo: "", sort_order: 0 },
+    alif_tools: { name: "", icon: "", sort_order: 0 },
+    alif_certificates: { title: "", issuer: "", image: "", description: "", issued_date: "", featured: false, is_published: true, sort_order: 0 },
+    alif_tag: { name: "", icon: "", sort_order: 0 },
   };
   showEditModal(table, templates[table] || {}, true);
 }
@@ -904,6 +1095,7 @@ function addRow(table) {
 function showEditModal(table, item, isNew = false) {
   const content = document.getElementById("admin-panel-content");
   const fields = getTableFields(table);
+  const allTags = window._adminTags || [];
 
   const html = `
     <div class="admin-section-editor">
@@ -920,6 +1112,24 @@ function showEditModal(table, item, isNew = false) {
               <option value="false" ${!val ? "selected" : ""}>No</option>
             </select></div>`;
         }
+        if (f.type === "sort") {
+          const opts = Array.from({length: 20}, (_, i) => i + 1);
+          return `<div class="admin-form-row"><label>${f.label}</label>
+            <select data-field="${f.key}">
+              ${opts.map(n => `<option value="${n}" ${Number(val) === n ? "selected" : ""}>${n}</option>`).join("")}
+            </select></div>`;
+        }
+        if (f.type === "tags") {
+          const selectedTags = Array.isArray(val) ? val : (typeof val === 'string' ? val.split(',').map(s => s.trim()).filter(Boolean) : []);
+          return `<div class="admin-form-row"><label>${f.label}</label>
+            <div class="admin-tags-picker" data-field="${f.key}">
+              ${allTags.map(t => `<label class="admin-tag-option">
+                <input type="checkbox" value="${esc(t.name)}" ${selectedTags.includes(t.name) ? 'checked' : ''}>
+                <img src="${esc(t.icon)}" style="width:16px;height:16px;" onerror="this.style.display='none'">
+                <span>${esc(t.name)}</span>
+              </label>`).join("")}
+            </div></div>`;
+        }
         return `<div class="admin-form-row"><label>${f.label}</label><input type="${f.type || 'text'}" data-field="${f.key}" value="${esc(val)}"></div>`;
       }).join("")}
       <div class="admin-save-bar">
@@ -934,20 +1144,58 @@ function showEditModal(table, item, isNew = false) {
   document.getElementById("admin-save-btn").onclick = async () => {
     const data = {};
     fields.forEach(f => {
-      let val = content.querySelector(`[data-field="${f.key}"]`).value;
-      if (f.type === "number") val = Number(val);
-      if (f.type === "toggle") val = val === "true";
-      if (f.type === "array-comma") val = val.split(",").map(s => s.trim()).filter(Boolean);
-      data[f.key] = val;
+      if (f.type === "tags") {
+        const checked = content.querySelectorAll(`[data-field="${f.key}"] input[type="checkbox"]:checked`);
+        data[f.key] = Array.from(checked).map(cb => cb.value);
+      } else {
+        let val = content.querySelector(`[data-field="${f.key}"]`).value;
+        if (f.type === "number") val = Number(val);
+        if (f.type === "sort") val = Number(val);
+        if (f.type === "toggle") val = val === "true";
+        if (f.type === "array-comma") val = val.split(",").map(s => s.trim()).filter(Boolean);
+        data[f.key] = val;
+      }
     });
     data.updated_at = new Date().toISOString();
+
+    if (data.sort_order !== undefined) {
+      const { data: existing } = await supabase.from(table).select("id").eq("sort_order", data.sort_order).neq("id", item?.id || "");
+      if (existing && existing.length > 0) {
+        showToast("Sort Order " + data.sort_order + " is already used by another item!", "error");
+        btn.disabled = false; btn.textContent = isNew ? "Add" : "Save";
+        return;
+      }
+    }
 
     let res;
     if (isNew) {
       data.created_at = new Date().toISOString();
       res = await supabase.from(table).insert(data);
+      if (!res.error && table === "alif_projects") {
+        await supabase.from("alif_project_details").insert({
+          id: data.slug,
+          title: data.title || "",
+          status: "Completed",
+          description: data.description || "",
+          thumbnail_url: data.image || "",
+          github_url: data.github || "",
+          demo_url: data.demo || "",
+        });
+      }
     } else {
       res = await supabase.from(table).update(data).eq("id", item.id);
+      if (!res.error && table === "alif_projects" && item.slug !== data.slug) {
+        await supabase.from("alif_project_details").delete().eq("id", item.slug);
+        await supabase.from("alif_project_details").insert({
+          id: data.slug,
+          title: data.title || "",
+          status: "Completed",
+          description: data.description || "",
+          thumbnail_url: data.image || "",
+          github_url: data.github || "",
+          demo_url: data.demo || "",
+        });
+      }
     }
 
     if (res.error) showToast("Error: " + res.error.message, "error");
@@ -957,24 +1205,26 @@ function showEditModal(table, item, isNew = false) {
 
 function getTableFields(table) {
   const map = {
-    projects: [
+    alif_projects: [
       { key: "title", label: "Title" },
       { key: "slug", label: "Slug" },
       { key: "description", label: "Description", type: "textarea" },
       { key: "image", label: "Image URL" },
       { key: "github", label: "GitHub URL" },
       { key: "demo", label: "Demo URL" },
+      { key: "tags", label: "Tags", type: "tags" },
       { key: "featured", label: "Featured", type: "toggle" },
+      { key: "show_github", label: "Show GitHub", type: "toggle" },
       { key: "is_published", label: "Published", type: "toggle" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    skills: [
+    alif_skills: [
       { key: "name", label: "Name" },
       { key: "icon", label: "Icon URL" },
       { key: "level", label: "Level (0-100)", type: "number" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    education: [
+    alif_education: [
       { key: "degree", label: "Degree" },
       { key: "institute", label: "Institute" },
       { key: "district", label: "District" },
@@ -982,40 +1232,55 @@ function getTableFields(table) {
       { key: "year", label: "Year" },
       { key: "description", label: "Description", type: "textarea" },
       { key: "logo", label: "Logo URL" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    experience: [
+    alif_experience: [
       { key: "role", label: "Role" },
       { key: "company", label: "Company" },
       { key: "logo", label: "Logo URL" },
       { key: "duration", label: "Duration" },
       { key: "description", label: "Description", type: "textarea" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    services: [
+    alif_services: [
       { key: "title", label: "Title" },
-      { key: "icon", label: "Lucide Icon Name" },
+      { key: "icon", label: "Icon URL" },
       { key: "description", label: "Description", type: "textarea" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    reviews: [
+    alif_reviews: [
       { key: "name", label: "Name" },
       { key: "image", label: "Image URL" },
       { key: "comment", label: "Comment", type: "textarea" },
       { key: "is_published", label: "Published", type: "toggle" },
     ],
-    workflow: [
+    alif_workflow: [
       { key: "title", label: "Title" },
       { key: "role", label: "Role" },
       { key: "year", label: "Year" },
       { key: "status", label: "Status" },
       { key: "logo", label: "Logo URL" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
-    tools: [
+    alif_tools: [
       { key: "name", label: "Name" },
       { key: "icon", label: "Icon URL" },
-      { key: "sort_order", label: "Sort Order", type: "number" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
+    ],
+    alif_certificates: [
+      { key: "title", label: "Title" },
+      { key: "issuer", label: "Issuer" },
+      { key: "image", label: "Image URL" },
+      { key: "description", label: "Description (HTML supported)", type: "textarea" },
+      { key: "issued_date", label: "Issued Date" },
+      { key: "featured", label: "Featured", type: "toggle" },
+      { key: "is_published", label: "Published", type: "toggle" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
+    ],
+    alif_tag: [
+      { key: "name", label: "Name" },
+      { key: "icon", label: "Icon URL" },
+      { key: "sort_order", label: "Sort Order", type: "sort" },
     ],
   };
   return map[table] || [];
@@ -1026,7 +1291,7 @@ function getTableFields(table) {
 // ============================================
 document.getElementById("admin-logout-btn").addEventListener("click", async () => {
   await supabase.auth.signOut();
-  window.location.href = "../admin.html";
+  window.location.href = "/index.html";
 });
 
 document.getElementById("admin-sidebar-toggle").addEventListener("click", () => {
@@ -1036,6 +1301,13 @@ document.getElementById("admin-sidebar-toggle").addEventListener("click", () => 
 (async () => {
   const session = await checkAuth();
   if (!session) return;
+  resetSessionTimer();
+  startSessionTimer();
+  setupTimeoutModal();
+
+  const { data: tagsData } = await supabase.from("alif_tag").select("*").order("sort_order", { ascending: true });
+  window._adminTags = tagsData || [];
+
   buildNav();
   const firstBtn = document.querySelector(".admin-panel-nav-item");
   if (firstBtn) { firstBtn.classList.add("active"); loadSection(firstBtn.dataset.section, firstBtn.dataset.type); }

@@ -5,7 +5,7 @@ import { githubIcon, externalLinkIcon, detailsIcon } from "../../icons/index.js"
 const projectHeader = document.getElementById("projectHeader");
 const projectsContainer = document.getElementById("projectsContainer");
 
-export function renderProjects(projectsData) {
+export function renderProjects(projectsData, tagsData = []) {
   projectHeader.innerHTML = "";
 
   const title = document.createElement("h2");
@@ -14,9 +14,19 @@ export function renderProjects(projectsData) {
 
   projectHeader.appendChild(title);
 
-  drawProjects(projectsData.items);
+  const iconMap = {};
+  if (Array.isArray(tagsData)) {
+    tagsData.forEach(t => {
+      const name = t.name.toLowerCase();
+      iconMap[name] = { icon: t.icon, name: t.name };
+      iconMap[name.replace(/[^\w]/g, '')] = { icon: t.icon, name: t.name };
+      iconMap[name.split(/\s+/)[0]] = { icon: t.icon, name: t.name };
+    });
+  }
 
-  function drawProjects(items) {
+  drawProjects(projectsData.items, iconMap);
+
+  function drawProjects(items, iconMap) {
     projectsContainer.innerHTML = `
       <div class="projects-grid">
         ${
@@ -32,7 +42,7 @@ export function renderProjects(projectsData) {
                   <div class="project-tags" data-tags="${p.tags.join(',')}"></div>
                   <div class="project-actions">
                     <a href="project/project.html?id=${p.slug || p.title.toLowerCase().replace(/\s+/g, '-')}" class="btn-project">${detailsIcon}Details</a>
-                    <a href="${p.github}" class="btn-project" target="_blank">${githubIcon}GitHub</a>
+                    ${p.show_github !== false ? `<a href="${p.github}" class="btn-project" target="_blank">${githubIcon}GitHub</a>` : ''}
                     <a href="${p.demo}" class="btn-project primary" target="_blank">${externalLinkIcon}Live Demo</a>
                   </div>
                 </div>
@@ -43,11 +53,11 @@ export function renderProjects(projectsData) {
       </div>
     `;
     document.querySelectorAll('.project-card').forEach(card => {
-  const tagsDiv = card.querySelector('.project-tags');
-  if (tagsDiv && tagsDiv.dataset.tags) {
-    const tags = tagsDiv.dataset.tags.split(',');
-    renderProjectTags(tagsDiv, tags);
-  }
-});
+      const tagsDiv = card.querySelector('.project-tags');
+      if (tagsDiv && tagsDiv.dataset.tags) {
+        const tags = tagsDiv.dataset.tags.split(',');
+        renderProjectTags(tagsDiv, tags, iconMap);
+      }
+    });
   }
 }

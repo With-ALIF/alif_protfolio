@@ -1,11 +1,24 @@
 import { renderProjectTags } from '../tags/tags.js';
 import externalLinkIcon from "../icons/external-link-icon.js";
 import githubIcon from "../icons/github-icon.js";
+import { setProjectMeta } from "../script/seo.js";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const SUPABASE_URL = "https://cvmmpnpvstrwgfmhfplw.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2bW1wbnB2c3Ryd2dmbWhmcGx3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzI3MDQsImV4cCI6MjA5NzM0ODcwNH0.v0almOw_atds8v44EXDiwnAMPE9EhHg8WE4YltTDbzM";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function loadTagIcons() {
+  const { data } = await supabase.from("alif_tag").select("name, icon").order("sort_order", { ascending: true });
+  const map = {};
+  (data || []).forEach(t => {
+    const name = t.name.toLowerCase();
+    map[name] = { icon: t.icon, name: t.name };
+    map[name.replace(/[^\w]/g, '')] = { icon: t.icon, name: t.name };
+    map[name.split(/\s+/)[0]] = { icon: t.icon, name: t.name };
+  });
+  return map;
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -19,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(projectId);
         if (isUuid) {
             const { data: projRow } = await supabase
-                .from('projects')
+                .from('alif_projects')
                 .select('slug')
                 .eq('id', projectId)
                 .single();
@@ -27,28 +40,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const { data: project, error } = await supabase
-            .from('project_details')
-            .select('data')
+            .from('alif_project_details')
+            .select('*')
             .eq('id', lookupId)
             .single();
 
         if (error || !project) throw new Error("Not Found");
 
-        const d = project.data;
+        const d = {
+            title: project.title,
+            description: project.description,
+            fullDescription: project.full_description,
+            github: project.github_url,
+            demo: project.demo_url,
+            show_github: project.show_github,
+            show_demo: project.show_demo,
+            thumbnail: project.thumbnail_url,
+            status: project.status,
+            featured: project.featured,
+            show_database: project.show_database,
+            tags: project.tags || [],
+            technologies: project.technologies || [],
+            features: project.features || [],
+            gallery: project.gallery || [],
+            timeline: project.timeline || [],
+            challenges: project.challenges || [],
+            solutions: project.solutions || [],
+            statistics: project.statistics || {},
+            database: project.database_info || {},
+        };
 
         const { data: listData } = await supabase
-            .from('projects')
-            .select('slug')
+            .from('alif_projects')
+            .select('slug, show_github')
             .eq('is_published', true)
             .order('sort_order', { ascending: true });
 
         const list = (listData || []).map(p => p.slug || p.title.toLowerCase().replace(/\s+/g, '-'));
+        const currentProject = (listData || []).find(p => p.slug === projectId || p.title?.toLowerCase().replace(/\s+/g, '-') === projectId);
+        d.show_github = currentProject?.show_github !== false;
 
         const idx = list.indexOf(projectId);
         const prev = idx > 0 ? list[idx - 1] : null;
         const next = idx < list.length - 1 ? list[idx + 1] : null;
 
-        document.title = `${d.title} | Portfolio`;
+        setProjectMeta({ title: d.title, description: d.description, thumbnail: d.thumbnail, technologies: d.technologies }, projectId);
+
+        const tagIcons = await loadTagIcons();
 
         const statusColor = {
             'Completed': 'var(--success-color)',
@@ -125,12 +163,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p class="pd-hero-desc">${d.description}</p>
 
                 <div class="pd-hero-actions">
-                    <a href="${d.demo}" target="_blank" class="btn btn-success">
+                    ${d.show_demo !== false ? `<a href="${d.demo}" target="_blank" class="btn btn-success">
                         ${externalLinkIcon}<span>Live Demo</span>
-                    </a>
-                    <a href="${d.github}" target="_blank" class="btn btn-danger">
+                    </a>` : ''}
+                    ${d.show_github !== false ? `<a href="${d.github}" target="_blank" class="btn btn-danger">
                         ${githubIcon}<span>Github Code</span>
-                    </a>
+                    </a>` : ''}
                 </div>
             </section>
 
@@ -140,18 +178,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
 
             <div class="pd-detail-section">
-                <h4><i class="fas fa-layer-group"></i> Stack & Tools</h4>
-                <div id="stack-tags" class="project-tags">
-                    ${(d.technologies || []).map(tech => `<span class="tech-tag"><img src="${tech.icon}" alt="${tech.name}" title="${tech.name}" class="tech-icon" loading="lazy"><span class="tech-name">${tech.name}</span></span>`).join('')}
-                </div>
+                <h3><i class="fas fa-tags"></i> Tags</h3>
+                <div id="project-tags" class="project-tags" style="margin-top:15px;"></div>
             </div>
 
+            ${(d.technologies && d.technologies.length) ? `
             <div class="pd-detail-section">
-                <h3><i class="fas fa-tags"></i> Tags</h3>
-                <div class="pd-badge-row" style="margin-top:15px;">
-                    ${(d.tags || []).map(t => `<span class="pd-tag-badge">${t}</span>`).join('')}
-                </div>
-            </div>
+                <h4><i class="fas fa-layer-group"></i> Technologies</h4>
+                <div id="project-techs" class="project-tags" style="margin-top:15px;"></div>
+            </div>` : ''}
 
             <div class="pd-two-col">
                 <div class="pd-detail-section">
@@ -164,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             </div>
 
-            ${d.database ? `
+            ${d.show_database !== false && d.database ? `
             <div class="pd-detail-section">
                 <h3><i class="fas fa-database"></i> Database Infrastructure</h3>
                 <div class="pd-database-card">
@@ -223,8 +258,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
         `;
 
-        const tagsEl = document.getElementById('stack-tags');
-        if (tagsEl) renderProjectTags(tagsEl, d.technologies);
+        const tagsEl = document.getElementById('project-tags');
+        if (tagsEl) renderProjectTags(tagsEl, d.tags || [], tagIcons);
+
+        const techsEl = document.getElementById('project-techs');
+        if (techsEl) renderProjectTags(techsEl, d.technologies || [], tagIcons);
 
     } catch (error) {
         container.innerHTML = `

@@ -14,6 +14,7 @@ import { renderReview } from "./sections/review.js"
 import { renderContact } from "./sections/contact.js"
 import { renderFooter } from "./sections/footer.js"
 import { renderWorkflow } from "./sections/workflow.js"
+import { renderAchievement } from "../achievement/achievement.js"
 import { initScrollToTop } from "../scroll/scroll.js"
 import { loadService } from "../service/service.js"
 
@@ -30,7 +31,7 @@ Promise.all([
 ]).then(([
   data,
 ]) => {
-  renderMeta(data.meta)
+  renderMeta(data.seo, data.contact)
   renderHeader(data.logo, data.navigator)
   renderHero(data.hero)
   renderAbout(data.about)
@@ -38,13 +39,14 @@ Promise.all([
   renderEducationSection(data.education)
   renderTools(data.tools)
   renderExperience(data.experience)
-  renderProjects(data.projects)
+  renderProjects(data.projects, data.tags)
   renderSkills(data.skills)
   renderReview(data.reviews)
   renderContact(data.contact)
   renderFooter(data.logo, data.footer)
   renderWorkflow(data.workflow);
   loadService(data.services);
+  renderAchievement(data.certificates);
   initScrollToTop()
 }).catch(error => {
   console.error("Data loading error:", error)

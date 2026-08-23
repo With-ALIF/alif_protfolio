@@ -50,8 +50,7 @@ alif_portfolio/
 │   ├── config.js         # EmailJS configuration
 │   ├── supabase.js       # Supabase client initialization
 │   ├── mailer.js         # Contact submission handler
-│   ├── schema.sql        # Core database schema for Supabase
-│   └── project_details.sql # Extended project tables & schema
+│   └── schema.sql        # Complete database schema & RLS for Supabase
 ├── core/                 # Core application state & logic
 ├── icons/                # SVG icon assets & Lucide renderers
 ├── lib/                  # Global styles (hero, about, experience, skill, error)

@@ -1,41 +1,43 @@
-let iconMapPromise = null;
-
-function loadIconMap() {
-  if (!iconMapPromise) {
-
-    const iconUrl = new URL('tag-icons.json', import.meta.url);
-    iconMapPromise = fetch(iconUrl)
-      .then(resp => {
-        if (!resp.ok) {
-          console.error('Failed to load tag-icons.json', resp.status);
-          return {};
-        }
-        return resp.json();
-      })
-      .catch(err => {
-        console.error('Error fetching tag-icons.json', err);
-        return {};
-      });
-  }
-  return iconMapPromise;
-}
-
-export async function renderProjectTags(container, tags) {
+export async function renderProjectTags(container, tags, iconMap = {}) {
   if (!container) return;
-  const iconMap = await loadIconMap();
   const defaultIcon = iconMap['default'] || '';
+
+  function findTag(tagName) {
+    const raw = String(tagName).trim().toLowerCase();
+    const firstWord = raw.split(/\s+/)[0];
+    const normalized = firstWord.replace(/[^\w]/g, '');
+    for (const key of Object.keys(iconMap)) {
+      if (key === 'default') continue;
+      const kNorm = key.replace(/[^\w]/g, '').toLowerCase();
+      if (key.toLowerCase() === raw || kNorm === normalized || kNorm === raw) {
+        return iconMap[key];
+      }
+    }
+    return { icon: '', name: tagName };
+  }
+
   const html = tags
     .map(tag => {
       const isObj = typeof tag === 'object' && tag !== null;
       const tagName = isObj ? tag.name : tag;
-      const rawKey = String(tagName).trim().toLowerCase();
-      const firstWord = rawKey.split(/\s+/)[0];
-      const key = firstWord.replace(/[^\w]/g, '');
-      const src = (isObj && tag.icon) ? tag.icon : (iconMap[key] || defaultIcon);
+      let src, displayName;
+      if (isObj && tag.icon) {
+        src = tag.icon;
+        displayName = tag.name;
+      } else {
+        const found = findTag(tagName);
+        src = found.icon || '';
+        displayName = found.name || tagName;
+      }
+      if (src) {
+        return `<span class="project-tag">
+          <img src="${src}" alt="${displayName}" title="${displayName}" class="tag-icon" loading="lazy"
+               onerror="this.style.display='none'" />
+          <span class="tag-label">${displayName}</span>
+        </span>`;
+      }
       return `<span class="project-tag">
-        <img src="${src}" alt="${tagName}" title="${tagName}" class="tag-icon" loading="lazy"
-             onerror="this.src='${defaultIcon}'" />
-        <span class="tag-label">${tagName}</span>
+        <span class="tag-label">${displayName}</span>
       </span>`;
     })
     .join('');

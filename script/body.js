@@ -64,6 +64,12 @@ document.getElementById("body").innerHTML = `
   </div>
 </section>
 
+<section id="achievement-section">
+  <div class="container">
+    <div id="achievementContainer"></div>
+  </div>
+</section>
+
 <div id="experience-section">
   <h2 class="section-title"></h2>
   <div id="timeline"></div>

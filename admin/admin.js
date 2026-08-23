@@ -15,6 +15,9 @@ async function checkExistingSession() {
       await supabase.auth.signOut();
       return;
     }
+    if (!sessionStorage.getItem("admin_login_time")) {
+      sessionStorage.setItem("admin_login_time", Date.now());
+    }
     window.location.href = "/admin/panel.html";
   }
 }
@@ -47,6 +50,7 @@ form.addEventListener("submit", async (e) => {
         errorMsg.textContent = "Access denied";
         return;
       }
+      sessionStorage.setItem("admin_login_time", Date.now());
       window.location.href = "/admin/panel.html";
     }
   } catch (err) {
@@ -56,3 +60,12 @@ form.addEventListener("submit", async (e) => {
     loginBtn.textContent = "Sign In";
   }
 });
+
+const toggleBtn = document.getElementById("togglePassword");
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    const isPassword = passwordInput.type === "password";
+    passwordInput.type = isPassword ? "text" : "password";
+    toggleBtn.textContent = isPassword ? "Hide" : "Show";
+  });
+}
