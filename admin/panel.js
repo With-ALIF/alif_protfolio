@@ -594,7 +594,11 @@ function editProjectDetail(item) {
   };
 
   const arrFields = (key, arr) => (arr || []).map((v, i) =>
-    `<div class="admin-form-row"><label>${key} ${i + 1}</label><input type="text" data-arr="${key}" data-idx="${i}" value="${esc(typeof v === 'string' ? v : v.title || v.name || v.label || JSON.stringify(v))}"></div>`
+    `<div class="admin-form-row" style="display:flex;gap:8px;align-items:center;">
+      <label style="min-width:80px">${key} ${i + 1}</label>
+      <input type="text" data-arr="${key}" data-idx="${i}" value="${esc(typeof v === 'string' ? v : v.title || v.name || v.label || JSON.stringify(v))}" style="flex:1">
+      <button class="admin-item-remove-btn" data-remove-arr="${key}" data-remove-idx="${i}" style="flex-shrink:0">&times;</button>
+    </div>`
   ).join("");
 
   const allTags = window._adminTags || [];
@@ -711,6 +715,20 @@ function editProjectDetail(item) {
       </div>
     </div>
 
+    <div class="admin-section-editor">
+      <h3>Metrics</h3>
+      <div id="metrics-list">
+        ${Object.entries(d.statistics || {}).map(([k, v], i) =>
+          `<div class="admin-form-row" style="display:flex;gap:8px;align-items:center;">
+            <input type="text" data-metric-key="${i}" value="${esc(k)}" placeholder="Label" style="flex:1">
+            <input type="text" data-metric-val="${i}" value="${esc(v)}" placeholder="Value" style="flex:1">
+            <button class="admin-item-remove-btn" data-remove-metric="${i}" style="flex-shrink:0">&times;</button>
+          </div>`
+        ).join("")}
+      </div>
+      <button class="admin-add-item-btn" id="admin-add-metric">+ Add Metric</button>
+    </div>
+
     <div class="admin-save-bar">
       <button class="admin-reset-btn" id="admin-cancel-btn">Cancel</button>
       <button class="admin-save-btn" id="admin-save-btn">Save Changes</button>
@@ -736,6 +754,8 @@ function editProjectDetail(item) {
       const key = el.dataset.dfield;
       if (key === "tagsCSV") {
         data.tags = el.value.split(",").map(s => s.trim()).filter(Boolean);
+      } else if (key === "show_github" || key === "show_demo" || key === "show_database") {
+        data[key] = el.value === "true";
       } else {
         data[key] = el.value;
       }
@@ -779,15 +799,27 @@ function editProjectDetail(item) {
     });
   });
 
-  const simpleArrHandler = (key) => {
-    c.querySelectorAll(`[data-arr="${key}"]`).forEach(el => {
+  const simpleArrHandler = (singular, plural) => {
+    c.querySelectorAll(`[data-arr="${singular}"]`).forEach(el => {
       el.addEventListener("input", () => {
         const idx = parseInt(el.dataset.idx);
-        data[key][idx] = el.value;
+        data[plural][idx] = el.value;
       });
     });
   };
-  ["feature","challenge","solution"].forEach(simpleArrHandler);
+  simpleArrHandler("feature", "features");
+  simpleArrHandler("challenge", "challenges");
+  simpleArrHandler("solution", "solutions");
+
+  c.querySelectorAll("[data-remove-arr]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.removeArr;
+      const plural = key + "s";
+      const idx = parseInt(btn.dataset.removeIdx);
+      data[plural].splice(idx, 1);
+      editProjectDetail({ id: slug, data });
+    });
+  });
 
   const addSimple = (key, template) => {
     const idMap = {
@@ -818,6 +850,38 @@ function editProjectDetail(item) {
   });
   c.querySelectorAll("[data-remove-timeline]").forEach(btn => {
     btn.addEventListener("click", () => { data.timeline.splice(parseInt(btn.dataset.removeTimeline), 1); editProjectDetail({ id: slug, data }); });
+  });
+
+  c.querySelectorAll("[data-metric-key]").forEach(el => {
+    el.addEventListener("input", () => {
+      const idx = parseInt(el.dataset.metricKey);
+      const keys = Object.keys(data.statistics);
+      const oldKey = keys[idx];
+      const val = data.statistics[oldKey];
+      const newStats = {};
+      keys.forEach((k, i) => { newStats[i === idx ? el.value : k] = i === idx ? val : data.statistics[k]; });
+      data.statistics = newStats;
+    });
+  });
+  c.querySelectorAll("[data-metric-val]").forEach(el => {
+    el.addEventListener("input", () => {
+      const idx = parseInt(el.dataset.metricVal);
+      const key = Object.keys(data.statistics)[idx];
+      if (key) data.statistics[key] = el.value;
+    });
+  });
+  c.querySelectorAll("[data-remove-metric]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.dataset.removeMetric);
+      const keys = Object.keys(data.statistics);
+      delete data.statistics[keys[idx]];
+      editProjectDetail({ id: slug, data });
+    });
+  });
+  document.getElementById("admin-add-metric")?.addEventListener("click", () => {
+    const name = "Metric " + (Object.keys(data.statistics).length + 1);
+    data.statistics[name] = "";
+    editProjectDetail({ id: slug, data });
   });
 
   document.getElementById("admin-cancel-btn")?.addEventListener("click", () => loadSection("alif_project_details", "details"));
@@ -1270,9 +1334,9 @@ function getTableFields(table) {
     alif_certificates: [
       { key: "title", label: "Title" },
       { key: "issuer", label: "Issuer" },
-      { key: "image", label: "Image URL" },
+      { key: "image", label: "Image URL (Ratio Must 960 * 340 px)" },
       { key: "description", label: "Description (HTML supported)", type: "textarea" },
-      { key: "issued_date", label: "Issued Date" },
+      { key: "issued_date", label: "Issued Date", type: "date" },
       { key: "featured", label: "Featured", type: "toggle" },
       { key: "is_published", label: "Published", type: "toggle" },
       { key: "sort_order", label: "Sort Order", type: "sort" },

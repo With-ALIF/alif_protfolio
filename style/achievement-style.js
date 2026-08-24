@@ -59,32 +59,36 @@ if (!document.getElementById("achievement-style")) {
     .ach-card-ribbon {
       position: absolute;
       top: 14px;
-      left: -8px;
+      right: -8px;
+      left: auto;
       z-index: 2;
       background: linear-gradient(135deg, #FFB703, #FF6B35);
       color: #050816;
-      padding: 4px 14px 4px 12px;
+      padding: 4px 12px 4px 14px;
       font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      border-radius: 0 6px 6px 0;
+      border-radius: 6px 0 0 6px;
       box-shadow: 0 2px 8px rgba(255,107,53,0.3);
     }
     .ach-card-ribbon::before {
       content: '';
       position: absolute;
-      left: 0;
+      right: 0;
       bottom: -6px;
       border: 3px solid transparent;
       border-top-color: #c45a00;
-      border-right-color: #c45a00;
+      border-left-color: #c45a00;
     }
 
     .ach-card-image {
       overflow: hidden;
-      height: 180px;
+      width: 100%;
+      aspect-ratio: 1.9 / 1;
+      max-height: 160px;
       position: relative;
+      background: #0a0a0a;
     }
     .ach-card-image-overlay {
       position: absolute;
@@ -98,7 +102,8 @@ if (!document.getElementById("achievement-style")) {
     .ach-card-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
     }
 
     .ach-card-body { padding: 18px 18px 16px; }
